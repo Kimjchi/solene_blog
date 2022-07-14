@@ -1,86 +1,87 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import NavigationBar from '../components/NavigationBar'
+import PostCard from '../components/PostCard'
 
-const Home: NextPage = () => {
+const posts = [
+  {title: 'React Testing', excerpt: 'Learn React Testing', featured: true, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+  {title: 'React with Tailwind', excerpt: 'Learn React with Tailwind',  featured: false, date: ''},
+]
+
+export default function Home() {
+  // TODO sort posts to have featured at first position
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
+    <div className="container mx-auto p-5 mb-8 h-full">
+      <NavigationBar />
+      <div className='banner w-full bg-yellow-400 flex flex-col h-40 content-center'>
+        <h1 className='m-auto mb-1 text-6xl'>Solene's Blog</h1>
+        <h6 className='m-auto mt-1'>On essaye un nouveau blog !</h6>
+      </div>
+      <div className='main flex w-full my-2 h-1/2 space-x-4'>
+        <div className='left-side flex flex-col w-1/6 space-y-2'>
+          <div className='introduction card w-full h-1/3'>
+            <img></img>
+            <h4 className='mx-auto'>Introduction</h4>
+            <p className='text-sm mx-auto'>
+            Mauris fringilla placerat condimentum. Etiam non nunc at dolor sodales pulvinar. Sed sit amet turpis eu lacus commodo euismod vitae sed sem. Nullam ut dapibus metus, et sagittis leo. Proin vel nisi ut turpis lobortis laoreet at eget tortor. Aliquam in ornare sapien, quis pellentesque nunc.
             </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          </div>
+          <div className='search card w-full h-2/3'>
+          <h4 className='mx-auto'>RECHERCHE</h4>
+          <h4 className='mx-auto'>MOTS CLES</h4>
+          </div>
         </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
+        <div className="grid grid-cols-3 w-5/6 gap-4">
+            {posts.map((post) => {
+              return (
+                <PostCard 
+                  isFeatured={post.featured} 
+                  title={post.title} 
+                  theme="" 
+                  image='' 
+                  excerpt={post.excerpt} 
+                  date={new Date(post.date)}
+                />
+              
+            )})}
+        </div>
+      
+      </div>
+      <footer className="flex h-10 w-full items-center justify-center border-t">
+          Powered by{' Jeremy\'s dumb imagination'}
       </footer>
     </div>
   )
 }
-
-export default Home

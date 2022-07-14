@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.card {
+    border: 1px black solid;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+}
