@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useContext} from 'react'
+
+import Link from 'next/link'
 
 const NavigationBar = () => {
     const categories = [
@@ -12,7 +14,7 @@ const NavigationBar = () => {
     ]
 
   return (
-    <div className='flex w-full justify-between'>{categories.map(category => (<span>{category.title}</span>))}</div>
+    <div className='container mx-auto flex w-full justify-between pt-8'>{categories.map(category => (<Link href={category.url} key={category.url}><span className='cursor-pointer font-bold'>{category.title}</span></Link>))}</div>
   )
 }
 
