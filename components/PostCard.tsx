@@ -14,9 +14,9 @@ interface postCardProps {
 } 
 
 const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, index}: postCardProps) => {
-  const classes = isFeatured ? "col-span-2" : index === 1 ? "mt-10" : ""
+  const classes = isFeatured ? "lg:col-span-2" : index === 1 ? "lg:mt-10" : ""
   return (
-    <div className={classes + " card shadow-lg rounded-lg p-3 relative bg-white"}>
+    <div className={classes + " card shadow-lg rounded-lg p-3 relative bg-white w-full"}>
       <div className='relative overflow-hidden shadow-md pb-80 mb-5'>
         <img src={image} alt={title} className="object-top absolute h-80 w-full object-cover shadow-lg rounded-lg"></img>
       </div>      

@@ -55,6 +55,35 @@ export const getPosts = async () => {
     return results.postsConnection.edges.map(({node}: any) => node);
 }
 
+export const getCategoryPosts = async (category: string) => {
+    // TODO change to recent posts
+    const query = gql`
+        query getCategoryPosts($category: String!) {
+            postsConnection(stage: PUBLISHED, where: {category: {slug: $category}}) {
+            edges {
+                node {
+                category {
+                    name
+                }
+                excerpt
+                featuredImage {
+                    url
+                }
+                featuredPost
+                id
+                publishedAt
+                slug
+                title
+                }
+            }
+            }
+        }
+    `
+
+    const results = await request(graphqlAPI, query, { category });
+    return results.postsConnection.edges.map(({node}: any) => node);
+}
+
 export const getSimilarPosts = async (category: string = '', slug: string) => {
     const query = gql`
         query getPostDetails($slug: String!, $category: String!) {

@@ -3,7 +3,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="flex h-full w-full footer px-16 pt-4 pb-8 justify-around text-center mb-4">
+    <footer className="flex h-full w-full footer px-16 pt-4 pb-8 justify-around text-center mb-4 md:flex-row flex-col">
         <div className='flex flex-col'>
             <span className='font-semibold'>Navigation</span>
             <span>Historique des articles</span>

@@ -15,7 +15,7 @@ export default function Home( { posts }: HomeProps) {
   })
 
   return (
-        <div className="grid grid-cols-3 w-5/6 gap-4 overflow-hidden h-1/2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 lg:w-5/6 w-full gap-4 overflow-hidden h-1/2">
             {sortedPosts.map((post, index) => {
               return (
                 <PostCard 

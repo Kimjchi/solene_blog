@@ -66,8 +66,8 @@ export default function PostDetail({
             <span className='pl-2'>{author}</span>
             <span className='pl-2'>Nombre de commentaires</span>
         </div>
-        <div className='relative overflow-hidden shadow-md pb-80 mb-5'>
-            <img src={image} alt={title} className="object-top absolute h-80 w-full object-cover shadow-lg rounded-lg"></img>
+        <div className='relative overflow-hidden shadow-md pb-96 mb-5'>
+            <img src={image} alt={title} className="object-top absolute h-96 w-full object-cover shadow-lg rounded-lg"></img>
         </div>
         <div className='line-clamp-5 overflow-hidden text-center text-sm text-gray-700 font-normal px-4 lg:px-10 h-48 mb-16'>{
             content.children.map((typeObj: any, index: any) => {
