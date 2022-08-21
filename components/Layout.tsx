@@ -6,10 +6,9 @@ import SearchCard from './SearchCard';
 
 interface LayoutProps {
     children: React.ReactNode;
-    tags: Tag[];
 }
 
-const Layout = ({ children, tags }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
     <>
         <NavigationBar />        
