@@ -2,11 +2,11 @@ import React from 'react'
 import PostCard from '../components/PostCard';
 import { getCategories, getCategoryPosts, Post } from '../services';
 
-interface HomeProps {
+interface CategoryPageProps {
     posts: Post[];
   }
 
-  export default function CategoryPage({ posts }: HomeProps) {
+  export default function CategoryPage({ posts }: CategoryPageProps) {
     const sortedPosts = posts.sort((a,b) => {
         return a.featuredPost ? (b.featuredPost ? 0 : -1) : 1
       })
@@ -25,6 +25,7 @@ interface HomeProps {
                       key={post.id}
                       url={post.slug}
                       index={index}
+                      tags={post.tags.map(({name}) => name)}
                     />
                 )})}
             </div>

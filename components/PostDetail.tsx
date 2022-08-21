@@ -58,7 +58,7 @@ export default function PostDetail({
       };
 
   return (
-    <div className='post-detail card shadow-lg rounded-lg p-3 relative bg-white mt-10 w-full min-h-screen'>
+    <div className='post-detail card shadow-lg p-3 relative bg-white mt-10 w-full min-h-screen'>
         <h4 className='mb-3 text-2xl'>{title}</h4>
         <div className='sub-titles divide-x space-x-2 text-sm'>
             {theme && <span>{theme}</span>}

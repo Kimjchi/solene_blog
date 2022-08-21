@@ -1,12 +1,15 @@
 import React from 'react'
+import { getTags, Tag } from '../services';
 import Footer from './Footer';
 import NavigationBar from './NavigationBar'
+import SearchCard from './SearchCard';
 
 interface LayoutProps {
     children: React.ReactNode;
+    tags: Tag[];
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, tags }: LayoutProps) => {
   return (
     <>
         <NavigationBar />        
@@ -17,7 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
             </div>
             <div className='main flex w-full my-2 h-1/2 md:space-x-4 -mt-8'>
                 <div className='left-side flex-col w-1/6 space-y-2 mt-10 md:flex hidden'>
-                    <div className='introduction card w-full shadow-lg rounded-lg py-1'>
+                    <div className='introduction card w-full shadow-lg py-1'>
                         <div className='relative overflow-hidden pb-52 mb-4'>
                             <img src='https://media.graphassets.com/XpgYvvEoQ0etvlPK2pPU' alt='Une photo de Solene' className="object-top absolute h-52 w-full object-contain rounded-lg"></img>
                         </div>
@@ -26,15 +29,12 @@ const Layout = ({ children }: LayoutProps) => {
                         Mauris fringilla placerat condimentum. Etiam non nunc at dolor sodales pulvinar. Sed sit amet turpis eu lacus commodo euismod vitae sed sem. Nullam ut dapibus metus, et sagittis leo. Proin vel nisi ut turpis lobortis laoreet at eget tortor.
                         </p>
                     </div>
-                    <div className='search card w-full h-2/3 shadow-lg rounded-lg'>
-                        <h4 className='mx-auto'>RECHERCHE</h4>
-                        <h4 className='mx-auto'>MOTS CLES</h4>
-                    </div>
+                    <SearchCard />
                 </div>
                 {children}
                 </div>
             </div>
-        <div className='px-16'><Footer /></div>
+        <div className='px-5 container mx-auto'><Footer /></div>
     </>
   )
 }

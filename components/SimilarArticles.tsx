@@ -10,7 +10,7 @@ export default function SimilarArticles({lightPosts}: SimilarArticlesProps) {
   return (
     <div className='w-full mt-3'>
         <h3 className='ml-5'>Ces articles devraient vous plaire</h3>
-        <div className='card flex flex-row h-72 shadow-lg rounded-lg p-3 relative bg-white'>
+        <div className='card flex flex-row h-72 shadow-lg p-3 relative bg-white'>
             {
                 lightPosts.map(post => (
                     <div key={post.id} className='flex flex-col h-full'>

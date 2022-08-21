@@ -11,12 +11,13 @@ interface postCardProps {
   title: string;
   url: string;
   index: number;
+  tags: string[];
 } 
 
-const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, index}: postCardProps) => {
+const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, index, tags}: postCardProps) => {
   const classes = isFeatured ? "lg:col-span-2" : index === 1 ? "lg:mt-10" : ""
   return (
-    <div className={classes + " card shadow-lg rounded-lg p-3 relative bg-white w-full"}>
+    <div className={classes + " card shadow-lg p-3 relative bg-white w-full"}>
       <div className='relative overflow-hidden shadow-md pb-80 mb-5'>
         <img src={image} alt={title} className="object-top absolute h-80 w-full object-cover shadow-lg rounded-lg"></img>
       </div>      
@@ -30,14 +31,14 @@ const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, in
             <span>{theme}</span>
         </div>
         <Link href={`/post/${url}`}>
-          <span className='transition duration-500 transform hover:-translate-y-1 inline-block purple text-sm font-medium rounded-full text-white px-8 py-3 cursor-pointer'>
+          <span className='transition duration-500 transform hover:-translate-y-1 inline-block green text-sm font-medium px-8 py-3 cursor-pointer'>
             Continue Reading
           </span>
         </Link>
         <div className='text-sm space-x-1'>
-          <span>Tag 1</span>
-          <span>Tag 2</span>
-          <span>Tag 3</span>
+          {
+            tags.map((tag, index) => (<span key={index}>{tag}</span>))
+          }
         </div>
       </div>
     </div>

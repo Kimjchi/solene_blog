@@ -28,6 +28,7 @@ export default function Home( { posts }: HomeProps) {
                   key={post.id}
                   url={post.slug}
                   index={index}
+                  tags={post.tags.map(({name}) => name)}
                 />
             )})}
         </div>

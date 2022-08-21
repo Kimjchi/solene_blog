@@ -92,6 +92,10 @@ a {
   border: 1px #D0D172 solid;
 }
 
+.green-border-bt {
+  border-bottom: 1px #D0D172 solid;
+}
+
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
@@ -119,7 +123,7 @@ a {
 
 /* Color/shape of close button cross */
 .bm-cross {
-  background: #bdc3c7;
+  background: #000;
 }
 
 /*
@@ -133,7 +137,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* General sidebar styles */
 .bm-menu {
-  background: #373a47;
+  //background: #373a47;
+  background: #D0D172;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;  
 }
@@ -145,7 +150,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* Wrapper for item list */
 .bm-item-list {
-  color: #b8b7ad;
+  //color: #b8b7ad;
   padding: 0.8em;
 }
 

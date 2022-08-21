@@ -6,6 +6,11 @@ export interface category {
     name: string
 }
 
+export interface Tag {
+    name: string
+    slug: string
+}
+
 export interface lightPost {
     id: string;
     featuredImage: any;
@@ -24,6 +29,7 @@ export interface Post {
     slug: string;
     publishedAt: string;
     category: category;
+    tags: Tag[];
 }
 
 export const getPosts = async () => {
@@ -45,6 +51,9 @@ export const getPosts = async () => {
                     publishedAt
                     slug
                     title
+                    tags {
+                        name
+                    }
                   }
                 }
             }
@@ -60,22 +69,25 @@ export const getCategoryPosts = async (category: string) => {
     const query = gql`
         query getCategoryPosts($category: String!) {
             postsConnection(stage: PUBLISHED, where: {category: {slug: $category}}) {
-            edges {
-                node {
-                category {
-                    name
+                edges {
+                    node {
+                        category {
+                            name
+                        }
+                        excerpt
+                        featuredImage {
+                            url
+                        }
+                        featuredPost
+                        id
+                        publishedAt
+                        slug
+                        title
+                        tags {
+                            name
+                        }
+                    }
                 }
-                excerpt
-                featuredImage {
-                    url
-                }
-                featuredPost
-                id
-                publishedAt
-                slug
-                title
-                }
-            }
             }
         }
     `
@@ -151,4 +163,46 @@ export const getPostDetails = async (slug: string) => {
 
     const results = await request(graphqlAPI, query, { slug });
     return results.post;
+}
+
+export const getTags = async (): Promise<Tag[]> => {
+    const query = gql`
+        query getTags() {
+            tags(last: 9) {
+                name
+                slug
+            }
+        }
+    `
+
+    const results = await request(graphqlAPI, query);
+    return results.tags;
+}
+
+export const getTagPosts = async (slug: string) => {
+    // TODO change to recent posts
+    const query = gql`
+        query getTagPosts($slug: String!) {
+            posts(where: {tags_some: {slug: $slug}}, stage: PUBLISHED) {
+                category {
+                    name
+                }
+                excerpt
+                featuredImage {
+                    url
+                }
+                featuredPost
+                id
+                publishedAt
+                slug
+                title
+                tags {
+                    name
+                }
+            }
+        }
+    `
+
+    const results = await request(graphqlAPI, query, { slug });
+    return results.posts;
 }
