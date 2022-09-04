@@ -1,3 +1,5 @@
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react'
 import { getTags, Tag } from '../services';
@@ -18,9 +20,12 @@ const fetchData = useCallback(async () => {
   }, [fetchData])
 
   return (
-    <div className='search card w-full h-2/3 shadow-lg space-y-5 py-5'>
+    <div className='search text-center w-full h-2/3 space-y-5 py-5'>
         <h4 className='mx-auto'>RECHERCHE</h4>
-        <input placeholder='Search' type="text" required className='green-border-bt w-5/6 mx-auto focus:outline-none'/>
+        <div className='items-center justify-center flex-row w-full' style={{display: 'flex'}}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+            <input placeholder='Search' type="text" required className='focus:outline-none ml-2 green-border-bt w-4/6'/>
+          </div>
         <h4 className='mx-auto'>MOTS CLES</h4>
         <div className='flex flex-wrap space-x-2 space-y-2 items-center'>
         {

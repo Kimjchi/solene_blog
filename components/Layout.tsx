@@ -19,7 +19,7 @@ const Layout = ({ children }: LayoutProps) => {
             </div>
             <div className='main flex w-full my-2 h-1/2 md:space-x-4 -mt-8'>
                 <div className='left-side flex-col w-1/6 space-y-2 mt-10 md:flex hidden'>
-                    <div className='introduction card w-full shadow-lg py-1'>
+                    <div className='introduction text-center w-full py-1'>
                         <div className='relative overflow-hidden pb-52 mb-4'>
                             <img src='https://media.graphassets.com/XpgYvvEoQ0etvlPK2pPU' alt='Une photo de Solene' className="object-top absolute h-52 w-full object-contain rounded-lg"></img>
                         </div>

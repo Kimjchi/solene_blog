@@ -2,16 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&display=swap");
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  &:before{
-    content:'';
+  font-family: "Montserrat", sans-serif;
+  &:before {
+    content: "";
     content: "";
     width: 100%;
     height: 100vh;
@@ -28,31 +28,30 @@ body {
   }
 }
 
-.text-shadow{
+.text-shadow {
   text-shadow: 0px 2px 0px rgb(0 0 0 / 30%);
 }
 
-.adjacent-post{
-  & .arrow-btn{
+.adjacent-post {
+  & .arrow-btn {
     transition: width 300ms ease;
     width: 50px;
   }
-  &:hover{
-    & .arrow-btn{
+  &:hover {
+    & .arrow-btn {
       width: 60px;
     }
   }
 }
 
 .react-multi-carousel-list {
-  & .arrow-btn{
+  & .arrow-btn {
     transition: width 300ms ease;
     width: 50px;
-    &:hover{
+    &:hover {
       width: 60px;
     }
   }
-  
 }
 
 a {
@@ -65,19 +64,19 @@ a {
 }
 
 .banner {
-    background-color: #D0D172;
-    font-family: 'Playfair Display';
+  background-color: #d0d172;
+  font-family: "Playfair Display";
 }
 
 .footer {
-  background-color: #D0D172;
-  font-family: 'Playfair Display';
+  background-color: #d0d172;
+  font-family: "Playfair Display";
 }
 
 .card {
-    border: 1px black solid;
-    display: flex;
-    flex-direction: column;
+  border: 1px black solid;
+  display: flex;
+  flex-direction: column;
 }
 
 .purple {
@@ -85,15 +84,15 @@ a {
 }
 
 .green {
-  background-color: #D0D172;
+  background-color: #d0d172;
 }
 
 .green-border {
-  border: 1px #D0D172 solid;
+  border: 1px #d0d172 solid;
 }
 
 .green-border-bt {
-  border-bottom: 1px #D0D172 solid;
+  border-bottom: 1px #d0d172 solid;
 }
 
 /* Position and sizing of burger button */
@@ -138,9 +137,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* General sidebar styles */
 .bm-menu {
   //background: #373a47;
-  background: #D0D172;
+  background: #d0d172;
   padding: 2.5em 1.5em 0;
-  font-size: 1.15em;  
+  font-size: 1.15em;
 }
 
 /* Morph shape necessary with bubble or elastic */
