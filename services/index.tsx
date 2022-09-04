@@ -96,7 +96,8 @@ export const getCategoryPosts = async (category: string) => {
     return results.postsConnection.edges.map(({node}: any) => node);
 }
 
-export const getSimilarPosts = async (category: string = '', slug: string) => {
+export const getSimilarPosts = async (category: string = '', slug: string) => { 
+    // TODO get only published posts 
     const query = gql`
         query getPostDetails($slug: String!, $category: String!) {
             posts(
@@ -168,7 +169,7 @@ export const getPostDetails = async (slug: string) => {
 export const getTags = async (): Promise<Tag[]> => {
     const query = gql`
         query getTags() {
-            tags(last: 9) {
+            tags(last: 10) {
                 name
                 slug
             }
@@ -183,7 +184,7 @@ export const getTagPosts = async (slug: string) => {
     // TODO change to recent posts
     const query = gql`
         query getTagPosts($slug: String!) {
-            posts(where: {tags_some: {slug: $slug}}, stage: PUBLISHED) {
+            posts(where: {tags_some: {slug: $slug}}, stage: PUBLISHED, first: 10) {
                 category {
                     name
                 }
