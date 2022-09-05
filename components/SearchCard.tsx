@@ -30,7 +30,7 @@ const fetchData = useCallback(async () => {
         <div className='flex flex-wrap space-x-2 space-y-2 items-center'>
         {
           tags.map(({name, slug}, index) => (
-            <Link href={`/tag/${slug}`}>
+            <Link href={`/tag/${slug}`} key={slug}>
               <span key={slug} className={"text-sm font-medium px-3 py-1 cursor-pointer border hover:bg-gray-100" + (index === 0 ? " mt-2 ml-2" : "")}>#{name}</span>
             </Link>
           ))

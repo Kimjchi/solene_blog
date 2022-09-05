@@ -207,3 +207,31 @@ export const getTagPosts = async (slug: string) => {
     const results = await request(graphqlAPI, query, { slug });
     return results.posts;
 }
+
+export const getSearchedPosts = async (keyword: string) => {
+    // TODO change to recent posts
+    const query = gql`
+        query getSearchedPosts($keyword: String!) {
+            posts(where: {_search: $keyword}, stage: PUBLISHED, first: 10) {
+                category {
+                    name
+                }
+                excerpt
+                featuredImage {
+                    url
+                }
+                featuredPost
+                id
+                publishedAt
+                slug
+                title
+                tags {
+                    name
+                }
+            }
+        }
+    `
+
+    const results = await request(graphqlAPI, query, { keyword });
+    return results.posts;
+}

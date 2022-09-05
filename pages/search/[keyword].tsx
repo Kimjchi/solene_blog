@@ -1,20 +1,20 @@
 import React from 'react'
 import PostCard from '../../components/PostCard';
-import { getTags, Post, getTagPosts } from '../../services';
+import { getSearchedPosts, Post } from '../../services';
 
 interface TagPageProps {
     posts: Post[];
-    slug: string;
+    keyword: string;
 }
 
-export default function TagPage({ posts, slug }: TagPageProps) {
+export default function SearchPage({ posts, keyword }: TagPageProps) {
     const sortedPosts = posts.sort((a,b) => {
         return a.featuredPost ? (b.featuredPost ? 0 : -1) : 1
       })
       return (
             <div className='h-full w-full'>
               <div className='lg:-mb-8 mt-10'>
-                <h2 className='font-bold'>Articles #{slug}#</h2>
+                <h2 className='font-bold'>Articles #{keyword}#</h2>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 lg:w-5/6 w-full gap-4 overflow-hidden h-1/2">
                   {sortedPosts.map((post, index) => {
@@ -36,18 +36,9 @@ export default function TagPage({ posts, slug }: TagPageProps) {
       )
 }
 
-export async function getStaticProps({params}: {params: {slug: string}}) {
-    const posts = (await getTagPosts(params.slug) || []); 
-  
+export async function getServerSideProps({params}: {params: {keyword: string}}) {
+    const posts = (await getSearchedPosts(params.keyword) || []); 
     return {
-      props: { posts, slug: params.slug }
-    }
-}
-
-export async function getStaticPaths() {
-    const tags = await getTags();
-    return {
-        paths: tags.map(({slug}: any) => ({params: {slug: slug || ''}})),
-        fallback: false
+      props: { posts, keyword: params.keyword }
     }
 }
