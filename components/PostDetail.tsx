@@ -58,9 +58,9 @@ export default function PostDetail({
       };
 
   return (
-    <div className='post-detail green-border shadow-lg p-3 relative bg-white mt-10 w-full min-h-screen'>
-        <h4 className='mb-3 text-2xl'>{title}</h4>
-        <div className='sub-titles divide-x space-x-2 text-sm'>
+    <div className='post-detail green-border shadow-lg p-3 relative bg-white mt-10 w-full'>
+        <h4 className='mb-1 text-2xl font-finlandica-500'>{title}</h4>
+        <div className='sub-titles divide-x space-x-2 font-finlandica italic'>
             {theme && <span>{theme}</span>}
             <span className={`${theme ? 'pl-2': ''}`}>{moment(date).format('MMM DD, YYYY')}</span>
             <span className='pl-2'>{author}</span>
@@ -69,7 +69,7 @@ export default function PostDetail({
         <div className='relative overflow-hidden shadow-md pb-96 mb-5'>
             <img src={image} alt={title} className="object-top absolute h-96 w-full object-cover shadow-lg rounded-lg"></img>
         </div>
-        <div className='line-clamp-5 overflow-hidden text-center text-sm text-gray-700 font-normal px-4 lg:px-10 h-48 mb-16'>{
+        <div className='line-clamp-5 overflow-hidden text-center text-gray-700 px-4 lg:px-10 mb-8'>{
             content.children.map((typeObj: any, index: any) => {
                 const children = typeObj.children.map((item: any, itemIndex: any) => getContentFragment(itemIndex, item.text, item));
                 return getContentFragment(index, children, typeObj, typeObj.type)
