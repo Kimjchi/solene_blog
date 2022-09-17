@@ -17,8 +17,8 @@ const Layout = ({ children }: LayoutProps) => {
                 <h1 className='m-auto md:text-7xl text-6xl'>Solene's Blog</h1>
             </div>
             <div className='main flex w-full my-2 h-1/2 md:space-x-4 -mt-8'>
-                <div className='left-side flex-col w-1/6 space-y-2 mt-10 md:flex hidden'>
-                    <div className='introduction text-center w-full py-1'>
+                <div className='left-side flex-col w-1/6 mt-10 md:flex hidden'>
+                    <div className='introduction text-center w-full py-1 mb-20'>
                         <div className='relative overflow-hidden pb-40 mb-4'>
                             <img src='https://media.graphassets.com/gQJpz2A9R0aQkJrnie2W' alt='Une photo de Solene' className="object-top absolute h-40 w-full object-contain rounded-lg"></img>
                         </div>

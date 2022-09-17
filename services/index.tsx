@@ -11,9 +11,13 @@ export interface Tag {
     slug: string
 }
 
+export interface Image {
+    url: string
+}
+
 export interface lightPost {
     id: string;
-    featuredImage: any;
+    featuredImage: Image;
     title: string;
     slug: string;
     publishedAt: string;
@@ -23,13 +27,21 @@ export interface lightPost {
 export interface Post {
     id: string;
     featuredPost: boolean;
-    featuredImage: any;
+    featuredImage: Image;
     title: string;
     excerpt: string;
     slug: string;
     publishedAt: string;
     category: category;
     tags: Tag[];
+}
+
+export interface TradProject {
+    id: string;
+    title: string;
+    image: Image;
+    platform: string;
+    numberOfSubtitles: number;
 }
 
 export const getPosts = async () => {
@@ -234,4 +246,23 @@ export const getSearchedPosts = async (keyword: string) => {
 
     const results = await request(graphqlAPI, query, { keyword });
     return results.posts;
+}
+
+export const getTradProjects = async (): Promise<TradProject[]> => {
+    const query = gql`
+        query getTradProjects() {
+            traductionProjects {
+                title
+                platform
+                numberOfSubtitles
+                image {
+                  url
+                }
+                id
+            }
+        }
+    `
+
+    const results = await request(graphqlAPI, query);
+    return results.traductionProjects;
 }

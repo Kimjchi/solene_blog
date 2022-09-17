@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment';
 import Link from 'next/link';
+import { useSpring, animated } from 'react-spring'
 
 interface postCardProps {
   isFeatured?: boolean;
@@ -16,8 +17,10 @@ interface postCardProps {
 
 const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, index, tags}: postCardProps) => {
   const classes = isFeatured ? "lg:col-span-2" : index === 1 ? "lg:mt-10" : ""
+  const props: any = useSpring({ to: { opacity: 1, top: "0" }, from: { opacity: 0, top: "100vh" }, delay: 250 })
+
   return (
-    <div className={classes + " shadow-lg p-3 relative bg-white w-full" + ( index % 2 === 0 ? " card" : " text-center green-border")}>
+    <animated.div className={classes + " shadow-lg p-3 relative bg-white w-full" + ( index % 2 === 0 ? " card" : " text-center green-border")} style={props}>
       <div className='text-left mb-2'>
         <h4 className='transition duration-100 cursor-pointer hover:text-violet-900 text-xl font-finlandica-500'>
           <Link href={`/post/${url}`}>{title}</Link>
@@ -47,7 +50,7 @@ const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, in
           </div>
         </div>
       </div>
-    </div>
+    </animated.div>
   )
 }
 
