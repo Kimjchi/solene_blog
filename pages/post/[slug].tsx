@@ -30,7 +30,7 @@ export default function PostDetails({post, lightPosts}: {post: PostDetailsProps,
             author={post.author?.name}
         />
         <SimilarArticles lightPosts={lightPosts} />
-        <CommentForm />
+        <CommentForm postID={post.id} />
     </div>
   )
 }

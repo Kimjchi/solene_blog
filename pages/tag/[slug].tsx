@@ -12,11 +12,11 @@ export default function TagPage({ posts, slug }: TagPageProps) {
         return a.featuredPost ? (b.featuredPost ? 0 : -1) : 1
       })
       return (
-            <div className='h-full w-full'>
-              <div className='lg:-mb-8 mt-10'>
-                <h2 className='font-finlandica-500'>Articles #{slug}#</h2>
+            <div className='h-full w-full pl-5'>
+              <div className='lg:-mb-8 mt-14'>
+                <h2 className='font-finlandica-500 text-xl'>Articles #{slug}#</h2>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 lg:w-5/6 w-full gap-4 overflow-hidden h-1/2">
+              <div className="grid grid-cols-1 lg:grid-cols-3 lg:w-5/6 w-full gap-4 overflow-hidden h-1/2">
                   {sortedPosts.map((post, index) => {
                     return (
                       <PostCard 

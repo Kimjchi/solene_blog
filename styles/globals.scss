@@ -84,7 +84,7 @@ a {
 }
 
 .card {
-  border: 1px black solid;
+  border: 1px #d8d9b8 solid;
   display: flex;
   flex-direction: column;
 }
@@ -95,6 +95,14 @@ a {
 
 .green {
   background-color: #d0d172;
+}
+
+.hover-green:hover {
+  color: #d0d172;
+}
+
+.square-list {
+  list-style-type: square;
 }
 
 .green-border {

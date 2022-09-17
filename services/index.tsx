@@ -42,6 +42,24 @@ export interface TradProject {
     image: Image;
     platform: string;
     numberOfSubtitles: number;
+    genres: Genre[];
+    koreanName?: string;
+}
+
+export interface Genre {
+    nom: string;
+}
+
+export interface Comment extends BaseComment {
+    childComments: Comment[]
+}
+
+export interface BaseComment {
+    id: string;
+    name: string;
+    email: string;
+    comment: string;
+    createdAt: string;
 }
 
 export const getPosts = async () => {
@@ -114,7 +132,7 @@ export const getSimilarPosts = async (category: string = '', slug: string) => {
         query getPostDetails($slug: String!, $category: String!) {
             posts(
                 where: { slug_not: $slug, AND: {category: {name: $category} }}
-                last: 3
+                last: 4
             ) {
                 featuredImage {
                   url
@@ -259,10 +277,41 @@ export const getTradProjects = async (): Promise<TradProject[]> => {
                   url
                 }
                 id
+                genres {
+                    nom
+                }
+                koreanName
             }
         }
     `
 
     const results = await request(graphqlAPI, query);
     return results.traductionProjects;
+}
+
+export const getPostComments = async (postID: string): Promise<Comment[]> => {
+    const query = gql`
+        query GetPostComments($postID: String!) {
+            comments(
+            orderBy: publishedAt_ASC
+            where: {post: {id: $postID}}
+            ) {
+            comment
+            email
+            name
+            id
+            childComments {
+                comment
+                email
+                id
+                name
+                createdAt
+            }
+            createdAt
+            }
+        }
+    `
+
+    const results = await request(graphqlAPI, query, { postID });
+    return results.comments;
 }

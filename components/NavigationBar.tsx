@@ -38,9 +38,9 @@ const NavigationBar = () => {
 
   return (
     <>
-      <div className='container mx-auto w-full justify-between px-5 pt-8 md:flex hidden font-finlandica'>
+      <div className='container mx-auto w-full justify-between px-5 pt-8 md:flex hidden font-finlandica-500'>
         {
-          categories.map((category: any) => (<Link replace href={`/${category.slug}`} key={category.slug}><span className='cursor-pointer lg:text-base'>{category.name}</span></Link>))
+          categories.map((category: any) => (<Link replace href={`/${category.slug}`} key={category.slug}><span className='cursor-pointer lg:text-base hover-green'>{category.name}</span></Link>))
         }
       </div>
       <div className='md:hidden'>

@@ -43,7 +43,7 @@ const fetchData = useCallback(async () => {
             <input placeholder='Search' type="text" required className='focus:outline-none ml-2 green-border-bt w-4/6' value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyDown={handleKeyDown}/>
           </div>
         <h4 className='mx-auto font-finlandica-500 mb-5'>MOTS CLES</h4>
-        <div className='flex flex-wrap space-x-2 space-y-2 items-center'>
+        <div className='flex flex-wrap space-x-2 space-y-2 items-center justify-center'>
         {
           tags.map(({name, slug}, index) => (
             <Link href={`/tag/${slug}`} key={slug}>
