@@ -44,10 +44,15 @@ export interface TradProject {
     numberOfSubtitles: number;
     genres: Genre[];
     koreanName?: string;
+    priority?: Priority;
 }
 
 export interface Genre {
     nom: string;
+}
+
+export interface Priority {
+    order: number;
 }
 
 export interface Comment extends BaseComment {
@@ -188,6 +193,9 @@ export const getPostDetails = async (slug: string) => {
                 content {
                     raw
                 }
+                tags {
+                    name
+                }
             }
         }
     `
@@ -281,6 +289,9 @@ export const getTradProjects = async (): Promise<TradProject[]> => {
                     nom
                 }
                 koreanName
+                priority {
+                    order
+                }
             }
         }
     `
@@ -291,7 +302,7 @@ export const getTradProjects = async (): Promise<TradProject[]> => {
 
 export const getPostComments = async (postID: string): Promise<Comment[]> => {
     const query = gql`
-        query GetPostComments($postID: String!) {
+        query GetPostComments($postID: ID!) {
             comments(
             orderBy: publishedAt_ASC
             where: {post: {id: $postID}}
@@ -311,7 +322,6 @@ export const getPostComments = async (postID: string): Promise<Comment[]> => {
             }
         }
     `
-
     const results = await request(graphqlAPI, query, { postID });
     return results.comments;
 }

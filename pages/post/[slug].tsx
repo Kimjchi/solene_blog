@@ -3,7 +3,7 @@ import CommentForm from '../../components/CommentForm';
 import PostDetail from '../../components/PostDetail';
 import SimilarArticles from '../../components/SimilarArticles';
 
-import { category, getPostDetails, getPosts, getSimilarPosts, lightPost } from '../../services'
+import { category, getPostDetails, getPosts, getSimilarPosts, lightPost, Tag } from '../../services'
 
 interface PostDetailsProps {
     id: string;
@@ -16,6 +16,7 @@ interface PostDetailsProps {
     category: category;
     content: any
     author: any
+    tags: Tag[]
 }
 
 export default function PostDetails({post, lightPosts}: {post: PostDetailsProps, lightPosts: lightPost[]}) {
@@ -28,6 +29,7 @@ export default function PostDetails({post, lightPosts}: {post: PostDetailsProps,
             content={post.content?.raw} 
             date={new Date(post.publishedAt)}
             author={post.author?.name}
+            tags={post.tags}
         />
         <SimilarArticles lightPosts={lightPosts} />
         <CommentForm postID={post.id} />

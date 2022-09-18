@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSpring, a } from '@react-spring/web'
 
 interface FlippingCardProps {
@@ -12,12 +12,18 @@ interface FlippingCardProps {
 }
 
 export default function FlippingCard ({imageURL, title, numberOfSubtitles, platform, genres, koreanName, index}: FlippingCardProps) {
-    const [flipped, setFlipped] = useState(false)
+    const [flipped, setFlipped] = useState(true)
     const { transform, opacity } = useSpring({
         opacity: flipped ? 1 : 0,
         transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
         config: { mass: 5, tension: 500, friction: 80 },
     })
+
+    useEffect(() => {
+        setTimeout(()=>{
+            setFlipped(false)
+        }, 250 * (index + 1))    
+    }, [])
   return (
     <div className={"flex h-64 items-center justify-center relative" + (index % 3 === 0 ? " col-start-1": "")} onClick={() => setFlipped(state => !state)}>
         <a.div className='absolute overflow-hidden shadow-md pb-64 mb-5 cursor-pointer will-change-transform w-full top-0' style={{ opacity: opacity.to(o => 1 - o), transform }}>
@@ -32,7 +38,7 @@ export default function FlippingCard ({imageURL, title, numberOfSubtitles, platf
             }}
         >
             <div className='w-full h-full justify-center items-center flex flex-col'>
-                <p className='text-xl px-5'>{title}</p>
+                <p className='text-xl px-5 whitespace-pre-wrap'>{title}</p>
                 <h4 className='text-xl px-5'>{koreanName}</h4>
                 <h4 className='px-5 italic'>{genres.join(", ")}</h4>
                 <h4 className=''>{platform}</h4>

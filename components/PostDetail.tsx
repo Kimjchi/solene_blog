@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React from 'react'
+import { Tag } from '../services';
 
 interface postDetailProps {
     image: string;
@@ -8,6 +9,7 @@ interface postDetailProps {
     theme: string;
     title: string;
     author?: string;
+    tags: Tag[];
 } 
 
 export default function PostDetail({
@@ -16,7 +18,8 @@ export default function PostDetail({
     date,
     theme,
     title,
-    author='Anonymous'
+    author='Anonymous',
+    tags=[]
 }: postDetailProps) {
     const getContentFragment = (index: number, text: any, obj: any, type = '') => {
         let modifiedText = text;
@@ -64,8 +67,9 @@ export default function PostDetail({
             {theme && <span>{theme}</span>}
             <span className={`${theme ? 'pl-2': ''}`}>{moment(date).format('MMM DD, YYYY')}</span>
             <span className='pl-2'>{author}</span>
+            <span className='pl-2'>{tags.slice(0, 3).map(tag => tag.name).join(", ")}</span>
         </div>
-        <div className='relative overflow-hidden shadow-md pb-96 mb-5'>
+        <div className='relative overflow-hidden shadow-md pb-96 mb-5 w-5/6 mx-auto'>
             <img src={image} alt={title} className="object-top absolute h-96 w-full object-cover shadow-lg rounded-lg"></img>
         </div>
         <div className='line-clamp-5 overflow-hidden text-center text-gray-700 px-4 lg:px-10 mb-8'>{
