@@ -42,7 +42,7 @@ const about = ({ tradProjects }: AboutProps) => {
                 </div>
             </div>
             <h4 className='mb-5 text-2xl font-finlandica-500'>Mes projets de traduction</h4>
-            <div className='grid grid-cols-1 lg:grid-cols-4 gap-5 block mb-56'>
+            <div className='grid grid-cols-1 lg:grid-cols-4 gap-5 mb-56'>
                 { 
                     orderedProjects.map((project, index) => (
                         <FlippingCard 

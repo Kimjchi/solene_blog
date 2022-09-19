@@ -16,7 +16,7 @@ const NavigationBar = () => {
     const [keyword, setKeyword] = useState<string>("");
 
     useEffect(() => {
-      getCategories().then((newCategories:any) => setCategories([{name: "Accueil", slug: ""}, ...newCategories, {name: "A propos", slug: "about"}]))
+      getCategories().then((newCategories:any) => setCategories([{name: "Accueil", slug: ""}, ...newCategories, {name: "À propos", slug: "about"}]))
       getTags().then((newTags:any) => setTags(newTags))
     }, [])
 

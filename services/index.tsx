@@ -218,60 +218,74 @@ export const getTags = async (): Promise<Tag[]> => {
     return results.tags;
 }
 
-export const getTagPosts = async (slug: string) => {
-    // TODO change to recent posts
+export const getTagPosts = async (slug: string, skip: number = 0) => {
+    // TODO change orderby?
     const query = gql`
-        query getTagPosts($slug: String!) {
-            posts(where: {tags_some: {slug: $slug}}, stage: PUBLISHED, first: 10) {
-                category {
-                    name
+        query getTagPosts($slug: String!, $skip: Int!) {
+            postsConnection(where: {tags_some: {slug: $slug}}, first: 6, orderBy: createdAt_DESC, skip: $skip, stage: PUBLISHED) {
+                aggregate {
+                  count
                 }
-                excerpt
-                featuredImage {
-                    url
-                }
-                featuredPost
-                id
-                publishedAt
-                slug
-                title
-                tags {
-                    name
+                edges {
+                  node {
+                    category {
+                        name
+                    }
+                    excerpt
+                    featuredImage {
+                        url
+                    }
+                    featuredPost
+                    id
+                    publishedAt
+                    slug
+                    title
+                    tags {
+                        name
+                    }
+                  }
                 }
             }
         }
     `
 
-    const results = await request(graphqlAPI, query, { slug });
-    return results.posts;
+    const results = await request(graphqlAPI, query, { slug, skip });
+    return results.postsConnection;
 }
 
-export const getSearchedPosts = async (keyword: string) => {
+export const getSearchedPosts = async (keyword: string, skip: number = 0) => {
     // TODO change to recent posts
     const query = gql`
-        query getSearchedPosts($keyword: String!) {
-            posts(where: {_search: $keyword}, stage: PUBLISHED, first: 10) {
-                category {
-                    name
+        query getSearchedPosts($keyword: String!, $skip: Int!) {
+            postsConnection(where: {_search: $keyword}, first: 4, orderBy: createdAt_DESC, skip: $skip, stage: PUBLISHED) {
+                aggregate {
+                  count
                 }
-                excerpt
-                featuredImage {
-                    url
-                }
-                featuredPost
-                id
-                publishedAt
-                slug
-                title
-                tags {
-                    name
+                edges {
+                  node {
+                    category {
+                        name
+                    }
+                    excerpt
+                    featuredImage {
+                        url
+                    }
+                    featuredPost
+                    id
+                    publishedAt
+                    slug
+                    title
+                    tags {
+                        name
+                    }
+                  }
                 }
             }
         }
     `
 
-    const results = await request(graphqlAPI, query, { keyword });
-    return results.posts;
+    const results = await request(graphqlAPI, query, { keyword, skip });
+    return results.postsConnection;
 }
 
 export const getTradProjects = async (): Promise<TradProject[]> => {

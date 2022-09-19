@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Pagination from '../../components/Pagination';
 import PostCard from '../../components/PostCard';
 import { getTags, Post, getTagPosts } from '../../services';
 
+const POSTS_DISPLAYED = 6;
 interface TagPageProps {
-    posts: Post[];
     slug: string;
 }
 
-export default function TagPage({ posts, slug }: TagPageProps) {
+export default function TagPage({ slug }: TagPageProps) {
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [totalPage, setTotalPage] = useState<number>(1);
+
+    // declare the async data fetching function
+    const fetchData = useCallback(async (selectedPage: number) => {
+      const skip = (selectedPage - 1) * POSTS_DISPLAYED
+      const data = await (getTagPosts(slug, skip) || []);
+      const posts: Post[] = data.edges.map((edge: any) => edge.node);
+      setPosts(posts);
+      setTotalPage(Math.ceil(data.aggregate.count / POSTS_DISPLAYED) )
+    }, [slug])
+
+    useEffect(() => {
+      fetchData(1)
+      // make sure to catch any error
+      .catch(console.error);
+    }, [fetchData])
+
     const sortedPosts = posts.sort((a,b) => {
         return a.featuredPost ? (b.featuredPost ? 0 : -1) : 1
       })
@@ -17,7 +35,7 @@ export default function TagPage({ posts, slug }: TagPageProps) {
               <div className='lg:-mb-8 mt-14'>
                 <h2 className='font-finlandica-500 text-xl'>Articles #{slug}#</h2>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-3 lg:w-5/6 w-full gap-4 overflow-hidden h-1/2 mb-8">
+              <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-4 overflow-hidden h-1/2 mb-8">
                   {sortedPosts.map((post, index) => {
                     return (
                       <PostCard 
@@ -33,16 +51,14 @@ export default function TagPage({ posts, slug }: TagPageProps) {
                       />
                   )})}
               </div>
-              <Pagination pageNumber={20}/>
+              <Pagination pageNumber={totalPage} callBack={fetchData}/>
             </div>
       )
 }
 
 export async function getStaticProps({params}: {params: {slug: string}}) {
-    const posts = (await getTagPosts(params.slug) || []); 
-  
     return {
-      props: { posts, slug: params.slug }
+      props: { slug: params.slug }
     }
 }
 

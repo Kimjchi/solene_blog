@@ -35,7 +35,7 @@ const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, in
         <div className='mb-3'>
           <Link href={`/post/${url}`}>
             <span className='transition duration-500 transform hover:-translate-y-1 inline-block green px-6 py-2 cursor-pointer'>
-              Continue Reading
+              Lire
             </span>
           </Link>
         </div>

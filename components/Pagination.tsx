@@ -13,8 +13,7 @@ const Pagination = ({pageNumber, callBack}: PaginationProps) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pages, setPages] = useState<number[]>([]);
 
-    useEffect(() => {
-        callBack && callBack(currentPage);
+    useEffect(() => {        
         setPages(() => {
             const list = Array.from({length: (pageNumber)}, (v, k) => k + 1);
             if (pageNumber > DISPLAYED_LIMIT) {
@@ -26,21 +25,28 @@ const Pagination = ({pageNumber, callBack}: PaginationProps) => {
         })
     }, [currentPage, pageNumber])
 
+    const handleClick = (newCurrentPage: number) => {
+        setCurrentPage(() => {
+            callBack && callBack(newCurrentPage);
+            return newCurrentPage;
+        })        
+    }
+
     return (
         <div className='w-full flex space-x-3 items-center justify-center text-2xl'>
-            <FontAwesomeIcon icon={faChevronLeft} className="cursor-pointer" onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}/>
+            <FontAwesomeIcon icon={faChevronLeft} className="cursor-pointer" onClick={() => handleClick(Math.max(currentPage - 1, 1))}/>
             {
                 pages.map(number =>  (
                     <span 
                         className={'cursor-pointer w-10 h-10 justify-center items-center flex' + (currentPage === number ? " green rounded-full": "")} 
-                        onClick={() => setCurrentPage(number)}
+                        onClick={() => handleClick(number)}
                         key={number}
                     >
                         {number}
                     </span>
                 ))
             }
-            <FontAwesomeIcon icon={faChevronRight} className="cursor-pointer" onClick={() => setCurrentPage(Math.min(currentPage + 1, pageNumber))}/>
+            <FontAwesomeIcon icon={faChevronRight} className="cursor-pointer" onClick={() => handleClick(Math.min(currentPage + 1, pageNumber))}/>
         </div>
     )
 }
