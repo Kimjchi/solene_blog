@@ -1,13 +1,22 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import FlippingCard from '../components/FlippingCard';
 import { getTradProjects, TradProject } from '../services';
 
 
-interface AboutProps {
-    tradProjects: TradProject[]
-}
+const about = ({}) => {
+    const [tradProjects, setTradProjects] = useState<TradProject[]>([]);
 
-const about = ({ tradProjects }: AboutProps) => {
+    // declare the async data fetching function
+    const fetchData = useCallback(async () => {
+        const tradProjects = (await getTradProjects() || []);
+        setTradProjects(tradProjects);
+    }, [])
+
+    useEffect(() => {
+      fetchData()
+      // make sure to catch any error
+      .catch(console.error);
+    }, [fetchData])
 
     const orderedProjects = useMemo(() => tradProjects.sort((a, b) => (b.priority?.order || 0) - (a.priority?.order || 0)), [tradProjects])
     
@@ -63,11 +72,3 @@ const about = ({ tradProjects }: AboutProps) => {
 }
 
 export default about
-
-export async function getStaticProps() {
-    const tradProjects = (await getTradProjects() || []);
-  
-    return {
-      props: { tradProjects }
-    }
-  }
