@@ -15,7 +15,7 @@ const Pagination = ({pageNumber, callBack}: PaginationProps) => {
 
     useEffect(() => {        
         setPages(() => {
-            const list = Array.from({length: (pageNumber)}, (v, k) => k + 1);
+            const list = Array.from({length: (Math.max(pageNumber, 1))}, (v, k) => k + 1);
             if (pageNumber > DISPLAYED_LIMIT) {
                 const start = Math.max(1, currentPage - 4 - (pageNumber - currentPage > 4 ? 0 : 4 - pageNumber + currentPage))
                 const end = Math.min(pageNumber, currentPage + 4 + (currentPage - 1 > 4 ? 0 : 5 - currentPage))

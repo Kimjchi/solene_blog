@@ -67,11 +67,13 @@ export interface BaseComment {
     createdAt: string;
 }
 
-export const getPosts = async () => {
-    // TODO change to recent posts
+export const getPosts = async ({first = 6, skip = 0}: {first?: number, skip?: number}) => {
     const query = gql`
-        query MyQuery {
-            postsConnection(stage: PUBLISHED) {
+        query GetPosts($first: Int!, $skip: Int!) {
+            postsConnection(stage: PUBLISHED, first: $first, orderBy: publishedAt_DESC, skip: $skip, where: {featuredPost: false}) {
+                aggregate {
+                    count
+                }
                 edges {
                   node {
                     category {
@@ -92,18 +94,61 @@ export const getPosts = async () => {
                   }
                 }
             }
+            posts(where: {featuredPost: true}, orderBy: publishedAt_DESC) {
+                category {
+                    name
+                }
+                excerpt
+                featuredImage {
+                  url
+                }
+                featuredPost
+                id
+                publishedAt
+                slug
+                title
+                tags {
+                    name
+                }
+            }
         }
     `
 
-    const results = await request(graphqlAPI, query);
-    return results.postsConnection.edges.map(({node}: any) => node);
+    const results = await request(graphqlAPI, query, { skip, first });
+    return {postsConnection: results.postsConnection, featuredPosts: results.posts};
 }
 
-export const getCategoryPosts = async (category: string) => {
+export const getArchivePosts = async ({first = 10, skip = 0}: {first?: number, skip?: number}) => {
+    const query = gql`
+        query GetArchivePosts($first: Int!, $skip: Int!) {
+            postsConnection(stage: PUBLISHED, first: $first, orderBy: publishedAt_DESC, skip: $skip) {
+                aggregate {
+                    count
+                }
+                edges {
+                  node {
+                    id
+                    publishedAt
+                    slug
+                    title
+                  }
+                }
+            }
+        }
+    `
+
+    const results = await request(graphqlAPI, query, { skip, first });
+    return results.postsConnection;
+}
+
+export const getCategoryPosts = async ({category, skip = 0}: {category: string, skip?: number}) => {
     // TODO change to recent posts
     const query = gql`
-        query getCategoryPosts($category: String!) {
-            postsConnection(stage: PUBLISHED, where: {category: {slug: $category}}) {
+        query getCategoryPosts($category: String!, $skip: Int!) {
+            postsConnection(stage: PUBLISHED, where: {category: {slug: $category}}, first: 6, orderBy: publishedAt_DESC, skip: $skip) {
+                aggregate {
+                    count
+                }
                 edges {
                     node {
                         category {
@@ -127,8 +172,8 @@ export const getCategoryPosts = async (category: string) => {
         }
     `
 
-    const results = await request(graphqlAPI, query, { category });
-    return results.postsConnection.edges.map(({node}: any) => node);
+    const results = await request(graphqlAPI, query, { category, skip });
+    return results.postsConnection;
 }
 
 export const getSimilarPosts = async (category: string = '', slug: string) => { 
@@ -222,7 +267,7 @@ export const getTagPosts = async (slug: string, skip: number = 0) => {
     // TODO change orderby?
     const query = gql`
         query getTagPosts($slug: String!, $skip: Int!) {
-            postsConnection(where: {tags_some: {slug: $slug}}, first: 6, orderBy: createdAt_DESC, skip: $skip, stage: PUBLISHED) {
+            postsConnection(where: {tags_some: {slug: $slug}}, first: 6, orderBy: publishedAt_DESC, skip: $skip, stage: PUBLISHED) {
                 aggregate {
                   count
                 }
@@ -257,7 +302,7 @@ export const getSearchedPosts = async (keyword: string, skip: number = 0) => {
     // TODO change to recent posts
     const query = gql`
         query getSearchedPosts($keyword: String!, $skip: Int!) {
-            postsConnection(where: {_search: $keyword}, first: 4, orderBy: createdAt_DESC, skip: $skip, stage: PUBLISHED) {
+            postsConnection(where: {_search: $keyword}, first: 4, orderBy: publishedAt_DESC, skip: $skip, stage: PUBLISHED) {
                 aggregate {
                   count
                 }

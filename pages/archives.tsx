@@ -1,11 +1,40 @@
-import React from 'react'
+import Link from 'next/link';
+import React, { useCallback, useEffect, useState } from 'react'
+import Pagination from '../components/Pagination';
+import { getArchivePosts } from '../services';
 
-const archives = () => {
+const POSTS_DISPLAYED = 10
+
+export default function archives () {
+  const [posts, setPosts] = useState<any[]>([]);
+    const [totalPage, setTotalPage] = useState<number>(1);
+
+    // declare the async data fetching function
+    const fetchData = useCallback(async (selectedPage: number) => {
+      const skip = (selectedPage - 1) * POSTS_DISPLAYED   
+      const postsConnection: any = await (getArchivePosts({skip}) || []);
+      const posts = postsConnection.edges.map((edge: any) => edge.node);
+      setPosts(posts);
+      setTotalPage(Math.ceil(postsConnection.aggregate.count / POSTS_DISPLAYED) )
+    }, [])
+
+    useEffect(() => {
+      fetchData(1)
+      // make sure to catch any error
+      .catch(console.error);
+    }, [fetchData])
+
   return (
-    <div className='w-full'>
-
-    </div>
+        <div className='w-full h-full pl-10 pt-5'>
+          <h4 className='mb-5 text-2xl font-finlandica-500'>Liste de tous les articles</h4>
+          <ul className="w-full overflow-hidden h-1/2 pl-5">
+              {posts.map((post) => {
+                return (
+                  <li className='square-list text-lg hover-green' key={post.id}><Link href={`/post/${post.slug}`}>{post.title}</Link></li>
+              )})}            
+          </ul>
+          <Pagination pageNumber={totalPage} callBack={fetchData}/>
+        </div>
   )
 }
 
-export default archives

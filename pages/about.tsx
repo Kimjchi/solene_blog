@@ -12,7 +12,7 @@ const about = ({ tradProjects }: AboutProps) => {
     const orderedProjects = useMemo(() => tradProjects.sort((a, b) => (b.priority?.order || 0) - (a.priority?.order || 0)), [tradProjects])
     
     return (
-        <div className='h-full w-full lg:-mb-8 mt-10 pl-10 pt-5'>
+        <div className='h-full w-full pl-10 pt-5'>
             <h4 className='mb-5 text-2xl font-finlandica-500'>En quelques mots...</h4>
             <div className='grid grid-cols-1 lg:grid-cols-4 gap-10 mb-5'>
                 <div className='bio lg:col-span-3'>

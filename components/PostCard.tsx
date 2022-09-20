@@ -16,7 +16,7 @@ interface postCardProps {
 } 
 
 const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, index, tags}: postCardProps) => {
-  const classes = isFeatured ? "lg:col-span-2" : index === 1 ? "lg:mt-12" : ""
+  const classes = isFeatured ? "lg:col-span-2 lg:-mt-10" : ""
   const props: any = useSpring({ to: { opacity: 1, top: "0" }, from: { opacity: 0, top: "100vh" }, delay: 250 + index * 100 })
 
   return (
@@ -34,7 +34,7 @@ const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, in
       <div className='text-center flex flex-col px-2 items-center bottom-2 absolute w-11/12 -translate-x-2/4 left-2/4'>
         <div className='mb-3'>
           <Link href={`/post/${url}`}>
-            <span className='transition duration-500 transform hover:-translate-y-1 inline-block green px-6 py-2 cursor-pointer'>
+            <span className='transition duration-500 transform hover:-translate-y-1 inline-block green px-6 py-2 cursor-pointer text-lg font-finlandica-500'>
               Lire
             </span>
           </Link>

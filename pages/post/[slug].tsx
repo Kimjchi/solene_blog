@@ -37,18 +37,10 @@ export default function PostDetails({post, lightPosts}: {post: PostDetailsProps,
   )
 }
 
-export async function getStaticProps({params}: {params: {slug: string}}) {
-    const post = await getPostDetails(params.slug);
-    const lightPosts = await getSimilarPosts(post?.category?.name, params.slug);
-    return {
-      props: { post, lightPosts }
-    }
-}
-
-export async function getStaticPaths() {
-    const posts = await getPosts();
-    return {
-        paths: posts.map(({slug}: any) => ({params: {slug: slug || ''}})),
-        fallback: false
-    }
+export async function getServerSideProps({params}: {params: {slug: string}}) {
+  const post = await getPostDetails(params.slug);
+  const lightPosts = await getSimilarPosts(post?.category?.name, params.slug);
+  return {
+    props: { post, lightPosts }
+  }
 }

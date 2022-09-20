@@ -31,7 +31,7 @@ export default function SearchPage({ keyword }: TagPageProps) {
       })
       return (
             <div className='h-full w-full'>
-              <div className='lg:-mb-8 mt-10'>
+              <div className='mb-4'>
                 <h2 className='font-finlandica-500'>Results for "{keyword}"</h2>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 w-full gap-4 overflow-hidden h-1/2 mb-8">

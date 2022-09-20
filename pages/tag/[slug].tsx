@@ -32,7 +32,7 @@ export default function TagPage({ slug }: TagPageProps) {
       })
       return (
             <div className='h-full w-full pl-5'>
-              <div className='lg:-mb-8 mt-14'>
+              <div className='my-4'>
                 <h2 className='font-finlandica-500 text-xl'>Articles #{slug}#</h2>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-4 overflow-hidden h-1/2 mb-8">

@@ -61,7 +61,7 @@ export default function PostDetail({
       };
 
   return (
-    <div className='post-detail green-border shadow-lg rounded-lg p-3 relative bg-white mt-10 w-full'>
+    <div className='post-detail green-border shadow-lg rounded-lg p-3 relative bg-white w-full'>
         <h4 className='mb-1 text-2xl font-finlandica-500'>{title}</h4>
         <div className='sub-titles divide-x space-x-2 font-finlandica italic mb-5'>
             {theme && <span>{theme}</span>}

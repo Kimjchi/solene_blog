@@ -1,22 +1,38 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import Pagination from '../components/Pagination';
 import PostCard from '../components/PostCard';
-import { getCategories, getCategoryPosts, Post } from '../services';
+import { getCategories, getCategoryPosts, getPosts, Post } from '../services';
 
+const POSTS_DISPLAYED = 6
 interface CategoryPageProps {
-    posts: Post[];
+    category: string;
   }
 
-  export default function CategoryPage({ posts }: CategoryPageProps) {
-    const sortedPosts = posts.sort((a,b) => {
-        return a.featuredPost ? (b.featuredPost ? 0 : -1) : 1
-      })
+  export default function CategoryPage({ category }: CategoryPageProps) {
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [totalPage, setTotalPage] = useState<number>(1);
+
+    // declare the async data fetching function
+    const fetchData = useCallback(async (selectedPage: number) => {
+      const skip = (selectedPage - 1) * POSTS_DISPLAYED
+      const postsConnection = await (getCategoryPosts({category, skip}) || []);
+      const posts: Post[] = postsConnection.edges.map((edge: any) => edge.node);
+      setPosts(posts);
+      setTotalPage(Math.ceil(postsConnection.aggregate.count / POSTS_DISPLAYED))
+    }, [category])
+
+    useEffect(() => {
+      fetchData(1)
+      // make sure to catch any error
+      .catch(console.error);
+    }, [fetchData])
     
       return (
-            <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-4 overflow-hidden h-1/2">
-                {sortedPosts.map((post, index) => {
+          <div className='w-full h-full -mt-12 pt-12'>
+            <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-4 overflow-hidden h-1/2 mb-8 -mt-8 pt-10">
+                {posts.map((post, index) => {
                   return (
                     <PostCard 
-                      isFeatured={post.featuredPost} 
                       title={post.title} 
                       theme={post.category?.name} 
                       image={post.featuredImage.url} 
@@ -29,14 +45,15 @@ interface CategoryPageProps {
                     />
                 )})}
             </div>
+            <Pagination pageNumber={totalPage} callBack={fetchData}/>
+          </div>
       )
 }
 
 export async function getStaticProps({params}: {params: {category: string}}) {
-    const posts = (await getCategoryPosts(params.category) || []);
   
     return {
-      props: { posts }
+      props: { category: params.category }
     }
 }
 
