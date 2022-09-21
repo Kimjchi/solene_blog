@@ -62,7 +62,8 @@ const NavigationBar = () => {
             <p className='mx-auto text-center px-2'>
             Bienvenue à toi, lecteur !
             <br/><br/>
-            Si tu es là, c’est sans doute parce que la Corée du Sud a, pour une raison ou pour une autre, piqué ton intérêt. Et si je fais fausse route, j’espère bien pouvoir me rattraper en t'emmenant avec moi sur le chemin d’une culture à multiples facettes. Ici on parle de littérature et de cinéma, d’arts et d’histoire et de bien d’autres choses ; bref, de la Corée dans tous ses états.
+            Si tu es là, c’est sans doute parce que la Corée du Sud a, pour une raison ou pour une autre, piqué ton intérêt. Et si je fais fausse route, j’espère bien pouvoir me rattraper en t'emmenant avec moi sur le chemin d’une culture à multiples facettes.
+            <br/>Ici on parle de littérature et de cinéma, d’arts et d’histoire et de bien d’autres choses ; bref, de la Corée dans tous ses états.
             </p>
           </div>
           <div className='text-center mt-2'>

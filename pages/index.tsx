@@ -12,12 +12,12 @@ export default function Home() {
     // declare the async data fetching function
     const fetchData = useCallback(async (selectedPage: number) => {
       const first = selectedPage === 1 ? 4 : 6
-      const skip = (selectedPage - 1) * (selectedPage === 2 ? 4 : 6)      
+      const skip = (selectedPage === 1 ? 0 : selectedPage === 2 ? 4 : (6 * (selectedPage - 2) + 4))    
       const {postsConnection, featuredPosts} = await (getPosts({skip, first}) || []);
       const posts: Post[] = postsConnection.edges.map((edge: any) => edge.node);
       if (skip === 0 && featuredPosts.length > 0) setPosts([...posts, featuredPosts[0]]);
       else setPosts(posts);
-      setTotalPage(Math.ceil(postsConnection.aggregate.count / POSTS_DISPLAYED) )
+      setTotalPage(Math.floor((postsConnection.aggregate.count + (featuredPosts.length > 0 ? 1 : 0)) / POSTS_DISPLAYED) + 1)
     }, [])
 
     useEffect(() => {

@@ -33,7 +33,7 @@ const Pagination = ({pageNumber, callBack}: PaginationProps) => {
     }
 
     return (
-        <div className='w-full flex space-x-3 items-center justify-center text-2xl'>
+        <div className='w-full flex space-x-3 items-center justify-center text-lg'>
             <FontAwesomeIcon icon={faChevronLeft} className="cursor-pointer" onClick={() => handleClick(Math.max(currentPage - 1, 1))}/>
             {
                 pages.map(number =>  (

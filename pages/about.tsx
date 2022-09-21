@@ -42,15 +42,15 @@ const about = ({}) => {
                     <div className=''>
                         <h3 className='mb-1 text-xl font-finlandica'>Prix</h3>
                         <ul className='square-list pl-5'>
-                            <li>Oct. 2021 : Concours de traduction <span className='italic'>New Hallyu</span>
+                            <li>Oct. 2021 : <span className='font-semibold'>Concours de traduction <span className='italic'>New Hallyu</span></span>
                             <br/>
                             <span className='italic'>LTI : Litterature Translation Institute of Korea</span>
                             <br/>
                             Deuxième Prix</li>
-                            <li>Sept. 2021 : Meilleur article de la rédaction
+                            <li>Sept. 2021 : <span className='font-semibold'>Meilleur article de la rédaction</span>
                             <br/>
                             <span className='italic'>Korea.net</span></li>
-                            <li>Juin 2021 : Concours d’expression orale en coréen
+                            <li>Juin 2021 : <span className='font-semibold'>Concours d’expression orale en coréen</span>
                             <br/>
                             <span className='italic'>Centre Culturel Coréen</span>
                             <br/>
