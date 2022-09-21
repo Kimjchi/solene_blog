@@ -13,7 +13,9 @@ export default function SearchCard() {
   // declare the async data fetching function
 const fetchData = useCallback(async () => {
   const tags: Tag[] = await getTags();
-  setTags(tags);
+  setTags(tags.sort((a,b) => {
+    return b.posts.length - a.posts.length
+  }).slice(0, 10));
 }, [])
 
   useEffect(() => {

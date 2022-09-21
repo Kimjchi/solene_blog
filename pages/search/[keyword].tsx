@@ -50,7 +50,7 @@ export default function SearchPage({ keyword }: TagPageProps) {
                       />
                   )})}
               </div>
-              <Pagination pageNumber={totalPage} callBack={fetchData}/>
+              {posts.length > 0 && <Pagination pageNumber={totalPage} callBack={fetchData}/>}
             </div>
       )
 }

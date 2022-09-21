@@ -22,9 +22,9 @@ export default function CommentForm({postID}: {postID: string}) {
   }, [fetchData]);
 
   return (
-    <div className='mt-3'>
+    <div className='mt-3 w-5/6'>
         <h3 className='ml-3 font-finlandica-500 text-xl mb-5'>Zone de commentaires</h3>
-        <div className='flex flex-col h-full green-border shadow-lg p-3 relative bg-white relative rounded-lg'>
+        <div className='flex flex-col h-full green-border shadow-lg p-3 relative bg-white rounded-lg'>
             <h4 className='ml-3 font-finlandica-500'>{numberOfComments} commentaire(s)</h4>
             <div className='mb-10'>
               {

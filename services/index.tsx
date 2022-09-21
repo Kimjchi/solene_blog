@@ -9,6 +9,7 @@ export interface category {
 export interface Tag {
     name: string
     slug: string
+    posts: any
 }
 
 export interface Image {
@@ -142,7 +143,6 @@ export const getArchivePosts = async ({first = 10, skip = 0}: {first?: number, s
 }
 
 export const getCategoryPosts = async ({category, skip = 0}: {category: string, skip?: number}) => {
-    // TODO change to recent posts
     const query = gql`
         query getCategoryPosts($category: String!, $skip: Int!) {
             postsConnection(stage: PUBLISHED, where: {category: {slug: $category}}, first: 6, orderBy: publishedAt_DESC, skip: $skip) {
@@ -176,13 +176,15 @@ export const getCategoryPosts = async ({category, skip = 0}: {category: string, 
     return results.postsConnection;
 }
 
-export const getSimilarPosts = async (category: string = '', slug: string) => { 
+export const getSimilarPosts = async (category: string = '', slug: string, tags: string[] = []) => { 
     // TODO get only published posts 
     const query = gql`
-        query getPostDetails($slug: String!, $category: String!) {
+        query getPostDetails($slug: String!, $category: String!, $tags: [ID!]!) {
             posts(
-                where: { slug_not: $slug, AND: {category: {name: $category} }}
-                last: 4
+                where: {slug_not: $slug, OR: [{category: {name: $category}}, {tags_some: {id_in:$tags}}]}
+                stage: PUBLISHED
+                orderBy: publishedAt_DESC
+                first: 4
             ) {
                 featuredImage {
                   url
@@ -198,7 +200,7 @@ export const getSimilarPosts = async (category: string = '', slug: string) => {
         }
     `
 
-    const results = await request(graphqlAPI, query, { category, slug });
+    const results = await request(graphqlAPI, query, { category, slug, tags });
     return results.posts;
 }
 
@@ -239,6 +241,7 @@ export const getPostDetails = async (slug: string) => {
                     raw
                 }
                 tags {
+                    id
                     name
                 }
             }
@@ -251,10 +254,13 @@ export const getPostDetails = async (slug: string) => {
 
 export const getTags = async (): Promise<Tag[]> => {
     const query = gql`
-        query getTags() {
-            tags(last: 10) {
+        query getTags {
+            tags {
                 name
                 slug
+                posts {
+                  id
+                }
             }
         }
     `
@@ -264,7 +270,6 @@ export const getTags = async (): Promise<Tag[]> => {
 }
 
 export const getTagPosts = async (slug: string, skip: number = 0) => {
-    // TODO change orderby?
     const query = gql`
         query getTagPosts($slug: String!, $skip: Int!) {
             postsConnection(where: {tags_some: {slug: $slug}}, first: 6, orderBy: publishedAt_DESC, skip: $skip, stage: PUBLISHED) {
@@ -299,7 +304,6 @@ export const getTagPosts = async (slug: string, skip: number = 0) => {
 }
 
 export const getSearchedPosts = async (keyword: string, skip: number = 0) => {
-    // TODO change to recent posts
     const query = gql`
         query getSearchedPosts($keyword: String!, $skip: Int!) {
             postsConnection(where: {_search: $keyword}, first: 4, orderBy: publishedAt_DESC, skip: $skip, stage: PUBLISHED) {

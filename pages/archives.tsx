@@ -6,7 +6,7 @@ import { getArchivePosts } from '../services';
 const POSTS_DISPLAYED = 10
 
 export default function archives () {
-  const [posts, setPosts] = useState<any[]>([]);
+    const [posts, setPosts] = useState<any[]>([]);
     const [totalPage, setTotalPage] = useState<number>(1);
 
     // declare the async data fetching function
@@ -33,7 +33,7 @@ export default function archives () {
                   <li className='square-list text-lg hover-green' key={post.id}><Link href={`/post/${post.slug}`}>{post.title}</Link></li>
               )})}            
           </ul>
-          <Pagination pageNumber={totalPage} callBack={fetchData}/>
+          {posts.length > 0 && <Pagination pageNumber={totalPage} callBack={fetchData}/>}
         </div>
   )
 }

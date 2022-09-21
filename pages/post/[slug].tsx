@@ -39,7 +39,7 @@ export default function PostDetails({post, lightPosts}: {post: PostDetailsProps,
 
 export async function getServerSideProps({params}: {params: {slug: string}}) {
   const post = await getPostDetails(params.slug);
-  const lightPosts = await getSimilarPosts(post?.category?.name, params.slug);
+  const lightPosts = await getSimilarPosts(post?.category?.name, params.slug, post?.tags?.map((tag:any) => tag.id));
   return {
     props: { post, lightPosts }
   }

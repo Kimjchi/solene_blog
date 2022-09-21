@@ -23,7 +23,9 @@ const Layout = ({ children }: LayoutProps) => {
                             <img src='https://media.graphassets.com/gQJpz2A9R0aQkJrnie2W' alt='Une photo de Solene' className="rounded-full h-full w-full object-cover"></img>
                         </div>
                         <p className='mx-auto text-center px-2'>
-                        Mauris fringilla placerat condimentum. Etiam non nunc at dolor sodales pulvinar. Sed sit amet turpis eu lacus commodo euismod vitae sed sem. Nullam ut dapibus metus, et sagittis leo. Proin vel nisi ut turpis lobortis laoreet at eget tortor.
+                        Bienvenue à toi, lecteur !
+                        <br/><br/>
+                        Si tu es là, c’est sans doute parce que la Corée du Sud a, pour une raison ou pour une autre, piqué ton intérêt. Et si je fais fausse route, j’espère bien pouvoir me rattraper en t'emmenant avec moi sur le chemin d’une culture à multiples facettes. Ici on parle de littérature et de cinéma, d’arts et d’histoire et de bien d’autres choses ; bref, de la Corée dans tous ses états.
                         </p>
                     </div>
                     <SearchCard />

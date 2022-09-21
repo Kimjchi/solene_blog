@@ -9,7 +9,7 @@ const Footer = () => {
             <span><Link href={`/archives`}>Historique des articles</Link></span>
         </div>
         <div className='flex flex-col'>
-            <span className='font-finlandica-500'>A propos</span>
+            <span className='font-finlandica-500'>À propos</span>
             <span>Copyright 2022</span>
             <span>Mentions légales</span>
         </div>
