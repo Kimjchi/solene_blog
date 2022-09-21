@@ -3,7 +3,7 @@ import CommentForm from '../../components/CommentForm';
 import PostDetail from '../../components/PostDetail';
 import SimilarArticles from '../../components/SimilarArticles';
 
-import { category, getPostDetails, getPosts, getSimilarPosts, lightPost, Tag } from '../../services'
+import { category, getPostDetails, getSimilarPosts, lightPost, Tag } from '../../services'
 
 interface PostDetailsProps {
     id: string;

@@ -177,7 +177,6 @@ export const getCategoryPosts = async ({category, skip = 0}: {category: string, 
 }
 
 export const getSimilarPosts = async (category: string = '', slug: string, tags: string[] = []) => { 
-    // TODO get only published posts 
     const query = gql`
         query getPostDetails($slug: String!, $category: String!, $tags: [ID!]!) {
             posts(
@@ -306,7 +305,13 @@ export const getTagPosts = async (slug: string, skip: number = 0) => {
 export const getSearchedPosts = async (keyword: string, skip: number = 0) => {
     const query = gql`
         query getSearchedPosts($keyword: String!, $skip: Int!) {
-            postsConnection(where: {_search: $keyword}, first: 4, orderBy: publishedAt_DESC, skip: $skip, stage: PUBLISHED) {
+            postsConnection(
+                where: {OR: [{_search: $keyword}, {tags_some: {name_contains:$keyword}}]}, 
+                first: 4, 
+                orderBy: publishedAt_DESC, 
+                skip: $skip, 
+                stage: PUBLISHED
+            ) {
                 aggregate {
                   count
                 }
