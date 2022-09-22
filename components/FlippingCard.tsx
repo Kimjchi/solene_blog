@@ -37,7 +37,7 @@ export default function FlippingCard ({imageURL, title, numberOfSubtitles, platf
                 rotateX: '180deg',
             }}
         >
-            <div className='w-full h-full justify-center items-center flex flex-col'>
+            <div className='w-full h-full justify-center items-center flex flex-col select-none'>
                 <p className='text-xl px-5 whitespace-pre-wrap'>{title}</p>
                 <h4 className='text-xl px-5'>{koreanName}</h4>
                 <h4 className='px-5 italic'>{genres.join(", ")}</h4>

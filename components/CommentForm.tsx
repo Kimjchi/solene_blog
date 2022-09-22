@@ -39,7 +39,7 @@ export default function CommentForm({postID}: {postID: string}) {
                         {
                           comment.childComments.map(
                             childComment => (
-                              <div className='flex'>
+                              <div className='flex' key={childComment.id}>
                                 <div className='border-l-4 border-green'></div>
                                 <div className='mx-2 bg-slate-50 flex flex-col pl-5 w-full' key={childComment.id}>
                                   <div className='flex items-center w-full'><h4 className='text-lg bold mr-2'>{childComment.name}</h4> <span>{getHowLongAgo(childComment.createdAt)}</span></div>
