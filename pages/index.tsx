@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import Loading from '../components/Loading';
 import Pagination from '../components/Pagination';
 import PostCard from '../components/PostCard'
 import { getPosts, Post } from '../services'
@@ -8,9 +9,11 @@ const POSTS_DISPLAYED = 5;
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
     const [totalPage, setTotalPage] = useState<number>(1);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     // declare the async data fetching function
     const fetchData = useCallback(async (selectedPage: number) => {
+      setIsLoading(true)
       const first = selectedPage === 1 ? 4 : 6
       const skip = (selectedPage === 1 ? 0 : selectedPage === 2 ? 4 : (6 * (selectedPage - 2) + 4))    
       const {postsConnection, featuredPosts} = await (getPosts({skip, first}) || []);
@@ -18,6 +21,7 @@ export default function Home() {
       if (skip === 0 && featuredPosts.length > 0) setPosts([...posts, featuredPosts[0]]);
       else setPosts(posts);
       setTotalPage(Math.floor((postsConnection.aggregate.count + (featuredPosts.length > 0 ? 1 : 0)) / POSTS_DISPLAYED) + 1)
+      setIsLoading(false)
     }, [])
 
     useEffect(() => {
@@ -31,9 +35,12 @@ export default function Home() {
   })
 
   return (
-        <div className='w-full h-full -mt-12 pt-12'>
+        <div className='w-full h-full -mt-12 pt-12 flex flex-col'>
+          {
+            isLoading && <Loading />
+          }
           <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-4 overflow-hidden h-1/2 mb-8 -mt-8 pt-10">
-              {sortedPosts.map((post, index) => {
+              {!isLoading && sortedPosts.map((post, index) => {
                 return (
                   <PostCard 
                     isFeatured={post.featuredPost} 
