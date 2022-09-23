@@ -13,8 +13,8 @@ const Layout = ({ children }: LayoutProps) => {
     <>
         <NavigationBar />        
         <div className="container mx-auto p-5 mb-8 h-full">
-            <div className='banner w-full bg-yellow-400 flex flex-col h-48 content-center rounded-lg'>
-                <h1 className='m-auto md:text-7xl text-6xl'>Solene's Blog</h1>
+            <div className='banner w-full flex flex-col h-48 content-center rounded-lg'>
+                <h1 className='m-auto md:text-7xl text-6xl'>Obangsaek</h1>
             </div>
             <div className='main flex w-full my-2 h-1/2 md:space-x-4 -mt-10 pt-12'>
                 <div className='left-side flex-col w-1/6 mt-1 md:flex hidden'>

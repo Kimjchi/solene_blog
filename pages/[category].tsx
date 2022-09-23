@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import Loading from '../components/Loading';
 import Pagination from '../components/Pagination';
 import PostCard from '../components/PostCard';
 import { getCategories, getCategoryPosts, getPosts, Post } from '../services';
@@ -11,14 +12,17 @@ interface CategoryPageProps {
   export default function CategoryPage({ category }: CategoryPageProps) {
     const [posts, setPosts] = useState<Post[]>([]);
     const [totalPage, setTotalPage] = useState<number>(1);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     // declare the async data fetching function
     const fetchData = useCallback(async (selectedPage: number) => {
+      setIsLoading(true);
       const skip = (selectedPage - 1) * POSTS_DISPLAYED
       const postsConnection = await (getCategoryPosts({category, skip}) || []);
       const posts: Post[] = postsConnection.edges.map((edge: any) => edge.node);
       setPosts(posts);
       setTotalPage(Math.ceil(postsConnection.aggregate.count / POSTS_DISPLAYED))
+      setIsLoading(false)
     }, [category])
 
     useEffect(() => {
@@ -28,9 +32,12 @@ interface CategoryPageProps {
     }, [fetchData])
     
       return (
-          <div className='w-full h-full -mt-12 pt-12'>
+          <div className='w-full h-full -mt-12 pt-12 flex flex-col'>
+            {
+            isLoading && <Loading />
+            }
             <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-4 overflow-hidden h-1/2 mb-8 -mt-8 pt-10">
-                {posts.map((post, index) => {
+                {!isLoading && posts.map((post, index) => {
                   return (
                     <PostCard 
                       title={post.title} 
@@ -46,21 +53,14 @@ interface CategoryPageProps {
                 )})}
             </div>
             {posts.length > 0 && <Pagination pageNumber={totalPage} callBack={fetchData}/>}
+            {!isLoading && posts.length === 0 && <h2 className='text-2xl font-finlandica-500'>De prochains articles seront bientôt disponibles !</h2>}
           </div>
       )
 }
 
-export async function getStaticProps({params}: {params: {category: string}}) {
+export async function getServerSideProps({params}: {params: {category: string}}) {
   
     return {
       props: { category: params.category }
-    }
-}
-
-export async function getStaticPaths() {
-    const categories = await getCategories();
-    return {
-        paths: categories.map(({slug}: any) => ({params: {category: slug || ''}})),
-        fallback: false
     }
 }

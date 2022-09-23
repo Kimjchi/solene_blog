@@ -8,9 +8,19 @@ import Link from 'next/link'
 
 import { getCategories, getTags } from '../services'
 
+const INITIAL_CATEGORIES = [
+  {name: "Accueil", slug: ""},
+  {name: "Cinéma", slug: "cinema"},
+  {name: "Littérature", slug: "litterature"},
+  {name: "Arts & Histoire", slug: "art-and-history"},
+  {name: "Expos & Évènements", slug: "exhibitions-and-events"},
+  {name: "Carnets de voyage", slug: "travels"},
+  {name: "À propos", slug: "about"},
+]
+
 const NavigationBar = () => {
     const router = useRouter()
-    const [categories, setCategories] = useState<any>([])
+    const [categories, setCategories] = useState<any>(INITIAL_CATEGORIES)
     const [tags, setTags] = useState<any>([])
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [keyword, setKeyword] = useState<string>("");

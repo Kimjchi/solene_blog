@@ -195,12 +195,32 @@ export const getSimilarPosts = async (category: string = '', slug: string, tags:
                 category {
                     name
                 }
-              }
+            }
+            postsConnection(
+                first: 4
+                orderBy: publishedAt_DESC
+                where: {slug_not: $slug}
+            ) {
+                edges {
+                    node {
+                        featuredImage {
+                            url
+                        }
+                        id
+                        publishedAt
+                        slug
+                        title
+                        category {
+                            name
+                        }
+                    }
+                }
+            }
         }
     `
 
-    const results = await request(graphqlAPI, query, { category, slug, tags });
-    return results.posts;
+    const {posts, postsConnection} = await request(graphqlAPI, query, { category, slug, tags });
+    return posts.length > 0 ? posts : postsConnection.edges.map((edge: any) => edge.node);
 }
 
 export const getCategories = async () => {
