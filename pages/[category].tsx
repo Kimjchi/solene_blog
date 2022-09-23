@@ -53,7 +53,7 @@ interface CategoryPageProps {
                 )})}
             </div>
             {posts.length > 0 && <Pagination pageNumber={totalPage} callBack={fetchData}/>}
-            {!isLoading && posts.length === 0 && <h2 className='text-2xl font-finlandica-500'>De prochains articles seront bientôt disponibles !</h2>}
+            {!isLoading && posts.length === 0 && <h2 className='text-xl font-finlandica-500'>De prochains articles seront bientôt disponibles !</h2>}
           </div>
       )
 }
