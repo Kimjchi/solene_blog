@@ -1,6 +1,9 @@
+import { faReply } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Comment, getPostComments, submitComment } from '../services';
+import { animated, useSpring } from 'react-spring';
+import { Comment, getPostComments, submitChildComment, submitComment } from '../services';
 import { getHowLongAgo } from '../utils/getStandardizedTime';
 
 export default function CommentForm({postID}: {postID: string}) {
@@ -10,6 +13,7 @@ export default function CommentForm({postID}: {postID: string}) {
   }, 0), [comments])
 
   const [isReplying, setIsReplying] = useState<boolean>(false)
+  const [commentReplying, setCommentReplying] = useState<Comment>()
 
   // declare the async data fetching function
   const fetchData = useCallback(async () => {
@@ -37,6 +41,7 @@ export default function CommentForm({postID}: {postID: string}) {
       comment,
       createdAt,
       childComments}])
+    setIsReplying(false)
   }, [comments])
 
   return (
@@ -50,9 +55,37 @@ export default function CommentForm({postID}: {postID: string}) {
                   comment => (
                     <div className='space-y-2' key={comment.id}>
                       <div className='m-2 bg-slate-50 flex flex-col pl-3'>
-                        <div className='flex items-center w-full'><h4 className='text-lg bold mr-2'>{comment.name}</h4> <span>{getHowLongAgo(comment.createdAt)}</span></div>
-                        <p className=''>{comment.comment}</p>
+                        <div className='flex w-full justify-between'>
+                          <div>
+                            <div className='flex items-center w-full'>
+                              <h4 className='text-lg bold mr-2'>{comment.name}</h4> 
+                              <span>{getHowLongAgo(comment.createdAt)}</span>
+                            </div>
+                            <p className=''>{comment.comment}</p>
+                          </div>
+                          <span 
+                            className='cursor-pointer mr-3 mt-3 hover-green'
+                            onClick={() => {
+                              setIsReplying(!isReplying || comment.id !== commentReplying?.id); 
+                              setCommentReplying(comment); 
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faReply} className=''/>
+                            {" Reply"}
+                          </span>
+                        </div>
                       </div>
+                      {
+                        isReplying && 
+                        commentReplying?.id === comment.id && 
+                        <CommentInputGroup 
+                          postID={postID} 
+                          fetchComments={fetchData} 
+                          addComment={addComment} 
+                          commentReplying={commentReplying}
+                          initialComment={`@${comment.name}, `}
+                        />
+                      }
                       <div className='pl-3'>
                         {
                           comment.childComments.map(
@@ -73,7 +106,7 @@ export default function CommentForm({postID}: {postID: string}) {
                 )
               }
             </div>
-            {!isReplying && <CommentInputGroup postID={postID} fetchComments={fetchData} addComment={addComment}/>}
+            {<CommentInputGroup postID={postID} fetchComments={fetchData} addComment={addComment} />}
         </div>
     </div>
   )
@@ -82,20 +115,28 @@ export default function CommentForm({postID}: {postID: string}) {
 function CommentInputGroup({
   postID,
   fetchComments,
-  addComment
-}: { postID: string, fetchComments: () => void, addComment: (comment: Comment) => void }) {
+  addComment,
+  commentReplying,
+  initialComment = ""
+}: { postID: string, fetchComments: () => void, addComment: (comment: Comment) => void, commentReplying?: Comment, initialComment? : string }) {
   const [name, setName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
-  const [comment, setComment] = useState<string>("")
+  const [comment, setComment] = useState<string>(initialComment)
+
+  const emailErr = useMemo(() => {
+    return (!(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) && !!email)
+  }, [email])
 
   const isDisabled = useMemo(() => {
-    return !name || !email || !comment
-  }, [name, email, comment])
+    return !name || !email || emailErr || !comment
+  }, [name, email, comment, emailErr])
 
   const handleSubmit = useCallback(() => {
-    submitComment({
+    (commentReplying ? 
+      submitChildComment({name, email, comment, parentCommentID: commentReplying.id}) : 
+      submitComment({
       name, email, comment, postID
-    }).then((res) => {
+    })).then((res) => {
       // setShowSuccessMessage(true)
       // After a timeout setShowSuccessMessage(false)
       addComment({
@@ -113,16 +154,25 @@ function CommentInputGroup({
     })
   }, [name, email, comment, postID])
 
+  const props: any = useSpring({ to: { opacity: 1, marginTop: 0 }, from: { opacity: 0, marginTop: -20 } })
+
   return (
-    <div className='grid grid-cols-5 bg-slate-50 p-3'>
+      <animated.div className=' w-full h-full grid grid-cols-5 bg-slate-50 p-3' style={props}>
       <div className='flex flex-col space-y-2 ml-3 col-span-4'>
         <textarea placeholder=' Ajouter un commentaire' required className='green-border focus:outline-none' value={comment} onChange={(e) => setComment(e.target.value)} />
         <input placeholder=' Nom*' type="text" required className='green-border w-1/4 focus:outline-none' value={name} onChange={(e) => setName(e.target.value)}/>
-        <input placeholder=' Adresse e-mail*' type="email" required className='green-border w-1/4 focus:outline-none' value={email} onChange={(e) => setEmail(e.target.value)}/>                
+        <input 
+          placeholder=' Adresse e-mail*' 
+          type="email" 
+          required 
+          className={` w-1/4 focus:outline-none ${emailErr ? "border-rose-500 border" : "green-border"}`}
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)}
+        />                
       </div>
       <div className='relative'>
         <input type="submit" onClick={handleSubmit} disabled={isDisabled} value="Envoyer" className={`w-20 absolute bottom-0 right-3 ${!isDisabled ? "green cursor-pointer" : ""}`}/>
       </div>
-    </div>
+      </animated.div>
   )
 }

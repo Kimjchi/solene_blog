@@ -43,9 +43,9 @@ const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, in
           <span className='text-gray-700 space-x-1'>
             {moment(date).format('MMM DD, YYYY')}
           </span>
-          <div className='space-x-1'>
+          <div className='space-x-1 divide-x'>
             {
-              tags.map((tag, index) => (<span key={index}>{tag}</span>))
+              tags.map((tag, index) => (<span key={index} className="pl-1">{tag}</span>))
             }
           </div>
         </div>

@@ -68,7 +68,7 @@ export default function PostDetail({
             {theme && <span>{theme}</span>}
             <span className={`${theme ? 'pl-2': ''}`}>{moment(date).format('MMM DD, YYYY')}</span>
             <span className='pl-2'>{author}</span>
-            {tags.slice(0, 3).map(tag => <span className='pl-2'>{tag.name}</span>)}
+            {tags.slice(0, 3).map((tag, index) => <span className='pl-2' key={index}>{tag.name}</span>)}
         </div>
         <img src={image} alt={title} className="h-96 object-contain object-center rounded-lg overflow-hidden mb-5 max-w-5/6 mx-auto"></img>
         <div className='line-clamp-5 overflow-hidden text-justify text-gray-700 px-4 lg:px-10 mb-8 select-none'>{

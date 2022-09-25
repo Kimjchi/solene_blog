@@ -425,3 +425,15 @@ export const submitComment = async (obj: any) => {
 
     return result.json()
 }
+
+export const submitChildComment = async (obj: any) => {
+    const result = await fetch('/api/childComments', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj)
+    })
+
+    return result.json()
+}
