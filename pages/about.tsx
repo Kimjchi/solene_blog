@@ -26,9 +26,9 @@ const about = ({}) => {
             <div className='grid grid-cols-1 lg:grid-cols-5 gap-10 mb-5'>
                 <div className='bio lg:col-span-3'>
                 Tout juste arrivée sur les bancs de la classe préparatoire, c’est par le jeu du hasard, au détour d’une conversation, que je commence à m’intéresser à la Corée du Sud. Ce n’est ni la musique ni les dramas qui suscitent mon intérêt, mais la langue, dans toute son élégance. Immédiatement tombée sous le charme de ses sonorités, je me fais la promesse, lorsque mes études se feront moins chronophages, de m’y consacrer. Ce n’est que quelques années plus tard, alors élève en école d’ingénieur, que je me jette à l’eau. À cette époque, je mets toutes les chances de mon côté et candidate au programme d’échange de l’université de POSTECH. Quelques mois plus tard, je m’envole pour la Corée du Sud et y repartirai avec une certitude : celle de faire quelque chose avec ce pays ; avec la langue.
-                <br/>
+                <br/><br/>
                 Poursuivant mon apprentissage au Centre Culturel Coréen deux ans plus tard, je décide, exhortée par ma professeure de coréen, de participer à un premier concours d’expression orale, puis un deuxième, cette fois-ci de sous-titrage. Durant trois mois, je me prends à l’exercice, ne laissant aucun répit à mon moi intérieur, qui, novice en traduction, avance et recule. Pourtant, aussi étrange que cela puisse paraître, ces moments-là forgent peu à peu mon engouement pour la traduction et me révèlent toute la beauté de cet exercice dont je me sens à la fois proche et étrangère.
-                <br/>
+                <br/><br/>
                 Aspirante traductrice, ce blog est l’occasion pour moi de vous parler de la Corée, et plus spécifiquement de toutes ces petites choses qui, peu à peu, m’ont fait tomber en amour pour ce pays et sa culture. Bonne lecture ! :)
                 </div>
                 <div className='pl-10 lg:col-span-2'>
