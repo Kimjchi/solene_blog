@@ -413,3 +413,15 @@ export const getPostComments = async (postID: string): Promise<Comment[]> => {
     const results = await request(graphqlAPI, query, { postID });
     return results.comments;
 }
+
+export const submitComment = async (obj: any) => {
+    const result = await fetch('/api/comments', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj)
+    })
+
+    return result.json()
+}

@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Comment, getPostComments } from '../services';
+import { Comment, getPostComments, submitComment } from '../services';
 import { getHowLongAgo } from '../utils/getStandardizedTime';
 
 export default function CommentForm({postID}: {postID: string}) {
@@ -8,6 +8,8 @@ export default function CommentForm({postID}: {postID: string}) {
   const numberOfComments = useMemo(() => comments.reduce((acc, current) => {
     return acc + current.childComments.length + 1
   }, 0), [comments])
+
+  const [isReplying, setIsReplying] = useState<boolean>(false)
 
   // declare the async data fetching function
   const fetchData = useCallback(async () => {
@@ -20,6 +22,22 @@ export default function CommentForm({postID}: {postID: string}) {
     // make sure to catch any error
     .catch(console.error);;
   }, [fetchData]);
+
+  const addComment = useCallback(({
+    id,
+    name,
+    email,
+    comment,
+    createdAt,
+    childComments
+  }: Comment) => {
+    setComments([...comments, {id,
+      name,
+      email,
+      comment,
+      createdAt,
+      childComments}])
+  }, [comments])
 
   return (
     <div className='mt-3 w-5/6'>
@@ -55,17 +73,56 @@ export default function CommentForm({postID}: {postID: string}) {
                 )
               }
             </div>
-            <div className='grid grid-cols-5 bg-slate-50 p-3'>
-              <div className='flex flex-col space-y-2 ml-3 col-span-4'>
-                <textarea placeholder=' Ajouter un commentaire' required className='green-border focus:outline-none'/>
-                <input placeholder=' Nom*' type="text" required className='green-border w-1/4 focus:outline-none'/>
-                <input placeholder=' Adresse e-mail*' type="email" required className='green-border w-1/4 focus:outline-none'/>                
-              </div>
-              <div className='relative'>
-                <input type="submit" disabled value="Envoyer" className='cursor-pointer green w-20 absolute bottom-0 right-3'/>
-              </div>
-            </div>
+            {!isReplying && <CommentInputGroup postID={postID} fetchComments={fetchData} addComment={addComment}/>}
         </div>
+    </div>
+  )
+}
+
+function CommentInputGroup({
+  postID,
+  fetchComments,
+  addComment
+}: { postID: string, fetchComments: () => void, addComment: (comment: Comment) => void }) {
+  const [name, setName] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [comment, setComment] = useState<string>("")
+
+  const isDisabled = useMemo(() => {
+    return !name || !email || !comment
+  }, [name, email, comment])
+
+  const handleSubmit = useCallback(() => {
+    submitComment({
+      name, email, comment, postID
+    }).then((res) => {
+      // setShowSuccessMessage(true)
+      // After a timeout setShowSuccessMessage(false)
+      addComment({
+        id: Math.random().toString(),
+        name,
+        email,
+        comment,
+        childComments: [],
+        createdAt: new Date().toISOString()
+      })
+      setName("")
+      setEmail("")
+      setComment("")
+      fetchComments()
+    })
+  }, [name, email, comment, postID])
+
+  return (
+    <div className='grid grid-cols-5 bg-slate-50 p-3'>
+      <div className='flex flex-col space-y-2 ml-3 col-span-4'>
+        <textarea placeholder=' Ajouter un commentaire' required className='green-border focus:outline-none' value={comment} onChange={(e) => setComment(e.target.value)} />
+        <input placeholder=' Nom*' type="text" required className='green-border w-1/4 focus:outline-none' value={name} onChange={(e) => setName(e.target.value)}/>
+        <input placeholder=' Adresse e-mail*' type="email" required className='green-border w-1/4 focus:outline-none' value={email} onChange={(e) => setEmail(e.target.value)}/>                
+      </div>
+      <div className='relative'>
+        <input type="submit" onClick={handleSubmit} disabled={isDisabled} value="Envoyer" className={`w-20 absolute bottom-0 right-3 ${!isDisabled ? "green cursor-pointer" : ""}`}/>
+      </div>
     </div>
   )
 }
