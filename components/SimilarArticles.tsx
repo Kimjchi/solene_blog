@@ -9,7 +9,7 @@ interface SimilarArticlesProps {
 
 export default function SimilarArticles({lightPosts}: SimilarArticlesProps) {
   return (
-    <div className='w-5/6 mt-7'>
+    <div className='md:w-5/6 mt-7 mb-10 md:mb-0'>
         <h3 className='ml-3 font-finlandica-500 text-xl mb-2'>Ces articles devraient vous plaire</h3>
         <div className='flex flex-row h-72 p-3 relative bg-white'>
             {

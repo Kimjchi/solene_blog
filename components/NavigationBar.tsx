@@ -76,9 +76,9 @@ const NavigationBar = () => {
             <br/>Ici on parle de littérature et de cinéma, d’arts et d’histoire et de bien d’autres choses ; bref, de la Corée dans tous ses états.
             </p>
           </div>
-          <div className='text-center mt-2'>
+          <div className='text-center mt-2 mb-2 pb-2'>
             <h4 className='mx-auto font-finlandica-500'>Tags</h4>
-            <div className='flex flex-wrap space-x-2 space-y-2 items-center'>
+            <div className='flex flex-wrap space-x-2 space-y-2 items-center mb-5'>
               {
                 tags.map(({name, slug}: any, index: number) => (
                   <Link href={`/tag/${slug}`} key={slug}>
