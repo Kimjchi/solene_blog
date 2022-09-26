@@ -47,7 +47,7 @@ export default function CommentForm({postID}: {postID: string}) {
   return (
     <div className='mt-3 w-5/6'>
         <h3 className='ml-3 font-finlandica-500 text-xl mb-5'>Zone de commentaires</h3>
-        <div className='flex flex-col h-full green-border shadow-lg p-3 relative bg-white rounded-lg'>
+        <div className='flex flex-col w-full h-full green-border shadow-lg p-3 relative bg-white rounded-lg'>
             <h4 className='ml-3 font-finlandica-500'>{numberOfComments} commentaire(s)</h4>
             <div className='mb-10'>
               {
@@ -64,14 +64,14 @@ export default function CommentForm({postID}: {postID: string}) {
                             <p className=''>{comment.comment}</p>
                           </div>
                           <span 
-                            className='cursor-pointer mr-3 mt-3 hover-green'
+                            className='cursor-pointer mr-6 mt-3 hover-green'
                             onClick={() => {
                               setIsReplying(!isReplying || comment.id !== commentReplying?.id); 
                               setCommentReplying(comment); 
                             }}
                           >
                             <FontAwesomeIcon icon={faReply} className=''/>
-                            {" Reply"}
+                            {" Répondre"}
                           </span>
                         </div>
                       </div>
@@ -128,8 +128,8 @@ function CommentInputGroup({
   }, [email])
 
   const isDisabled = useMemo(() => {
-    return !name || !email || emailErr || !comment
-  }, [name, email, comment, emailErr])
+    return !name || emailErr || !comment
+  }, [name, comment, emailErr])
 
   const handleSubmit = useCallback(() => {
     (commentReplying ? 
@@ -162,7 +162,7 @@ function CommentInputGroup({
         <textarea placeholder=' Ajouter un commentaire' required className='green-border focus:outline-none' value={comment} onChange={(e) => setComment(e.target.value)} />
         <input placeholder=' Nom*' type="text" required className='green-border w-1/4 focus:outline-none' value={name} onChange={(e) => setName(e.target.value)}/>
         <input 
-          placeholder=' Adresse e-mail*' 
+          placeholder=' Adresse e-mail' 
           type="email" 
           required 
           className={` w-1/4 focus:outline-none ${emailErr ? "border-rose-500 border" : "green-border"}`}

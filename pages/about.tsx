@@ -29,7 +29,7 @@ const about = ({}) => {
                 <br/><br/>
                 Poursuivant mon apprentissage au Centre Culturel Coréen deux ans plus tard, je décide, exhortée par ma professeure de coréen, de participer à un premier concours d’expression orale, puis un deuxième, cette fois-ci de sous-titrage. Durant trois mois, je me prends à l’exercice, ne laissant aucun répit à mon moi intérieur, qui, novice en traduction, avance et recule. Pourtant, aussi étrange que cela puisse paraître, ces moments-là forgent peu à peu mon engouement pour la traduction et me révèlent toute la beauté de cet exercice dont je me sens à la fois proche et étrangère.
                 <br/><br/>
-                Aspirante traductrice, ce blog est l’occasion pour moi de vous parler de la Corée, et plus spécifiquement de toutes ces petites choses qui, peu à peu, m’ont fait tomber en amour pour ce pays et sa culture. Bonne lecture ! :)
+                Souhaitant désormais en faire ma profession, ce blog est l’occasion pour moi de vous parler de la Corée, et plus spécifiquement de toutes ces petites choses qui, peu à peu, m’ont fait tomber en amour pour ce pays et sa culture. Bonne lecture ! :)
                 </div>
                 <div className='pl-10 lg:col-span-2'>
                     <div className='mb-10'>

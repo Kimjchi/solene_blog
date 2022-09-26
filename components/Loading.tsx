@@ -30,7 +30,7 @@ export default function Loading() {
 
     return (
         <div className='relative mx-auto mt-10 flex'>
-            {springs.map((styles: any, index: number) => <animated.div style={styles} className={`absolute w-3 h-3 green rounded-full`} key={index}/>)}
+            {springs.map((styles: any, index: number) => <animated.div style={styles} className={`absolute w-2 h-2 green rounded-full`} key={index}/>)}
         </div>
     )
 }
