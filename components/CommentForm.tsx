@@ -1,10 +1,12 @@
 import { faReply } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import moment from 'moment';
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react'
 import { animated, useSpring } from 'react-spring';
 import { Comment, getPostComments, submitChildComment, submitComment } from '../services';
 import { getHowLongAgo } from '../utils/getStandardizedTime';
+import ReCAPTCHA from "react-google-recaptcha"
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""
 
 export default function CommentForm({postID}: {postID: string}) {
   const [comments, setComments] = useState<Comment[]>([])
@@ -52,7 +54,7 @@ export default function CommentForm({postID}: {postID: string}) {
             <div className='mb-10'>
               {
                 comments.map(
-                  comment => (
+                  (comment, index) => (
                     <div className='space-y-2' key={comment.id}>
                       <div className='m-2 bg-slate-50 flex flex-col pl-3'>
                         <div className='flex w-full justify-between'>
@@ -84,6 +86,7 @@ export default function CommentForm({postID}: {postID: string}) {
                           addComment={addComment} 
                           commentReplying={commentReplying}
                           initialComment={`@${comment.name}, `}
+                          id={index + 1}
                         />
                       }
                       <div className='pl-3'>
@@ -106,7 +109,7 @@ export default function CommentForm({postID}: {postID: string}) {
                 )
               }
             </div>
-            {<CommentInputGroup postID={postID} fetchComments={fetchData} addComment={addComment} />}
+            {<CommentInputGroup postID={postID} fetchComments={fetchData} addComment={addComment} id={0}/>}
         </div>
     </div>
   )
@@ -117,28 +120,33 @@ function CommentInputGroup({
   fetchComments,
   addComment,
   commentReplying,
-  initialComment = ""
-}: { postID: string, fetchComments: () => void, addComment: (comment: Comment) => void, commentReplying?: Comment, initialComment? : string }) {
+  initialComment = "",
+  id
+}: { id: number, postID: string, fetchComments: () => void, addComment: (comment: Comment) => void, commentReplying?: Comment, initialComment? : string }) {
   const [name, setName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
   const [comment, setComment] = useState<string>(initialComment)
+  const [captchaValue, setCaptchaValue] = useState<string | null>();
 
   const emailErr = useMemo(() => {
     return (!(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) && !!email)
   }, [email])
 
   const isDisabled = useMemo(() => {
-    return !name || emailErr || !comment
-  }, [name, comment, emailErr])
+    return !name || emailErr || !comment || !captchaValue
+  }, [name, comment, emailErr, captchaValue])
+
+  const recaptchaRef: any = useRef([]);
 
   const handleSubmit = useCallback(() => {
     (commentReplying ? 
-      submitChildComment({name, email, comment, parentCommentID: commentReplying.id}) : 
+      submitChildComment({name, email, comment, parentCommentID: commentReplying.id, captcha: captchaValue}) : 
       submitComment({
-      name, email, comment, postID
+      name, email, comment, postID, captcha: captchaValue
     })).then((res) => {
-      // setShowSuccessMessage(true)
-      // After a timeout setShowSuccessMessage(false)
+      // Reset the reCAPTCHA so that it can be executed again if user 
+      // submits another email.
+      recaptchaRef.current[id].reset();
       addComment({
         id: Math.random().toString(),
         name,
@@ -152,7 +160,16 @@ function CommentInputGroup({
       setComment("")
       fetchComments()
     })
-  }, [name, email, comment, postID])
+  }, [name, email, comment, postID, recaptchaRef, captchaValue, id])
+
+  const onReCAPTCHAChange = (captchaCode: any) => {
+    // If the reCAPTCHA code is null or undefined indicating that
+    // the reCAPTCHA was expired then return early
+    if(!captchaCode) {
+      return;
+    }
+    setCaptchaValue(captchaCode)
+  }
 
   const props: any = useSpring({ to: { opacity: 1, marginTop: 0 }, from: { opacity: 0, marginTop: -20 } })
 
@@ -168,6 +185,11 @@ function CommentInputGroup({
           className={` w-1/4 focus:outline-none ${emailErr ? "border-rose-500 border" : "green-border"}`}
           value={email} 
           onChange={(e) => setEmail(e.target.value)}
+        />
+        <ReCAPTCHA
+          ref={recaptchaRef[id]}
+          sitekey={RECAPTCHA_SITE_KEY}
+          onChange={onReCAPTCHAChange}
         />                
       </div>
       <div className='relative'>

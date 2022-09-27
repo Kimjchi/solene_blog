@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import FlippingCard from '../components/FlippingCard';
+import FlippingCard from '../components/atoms/FlippingCard';
 import { getTradProjects, TradProject } from '../services';
 
 
