@@ -1,8 +1,8 @@
 import React from 'react'
-import { getTags, Tag } from '../services';
-import Footer from './Footer';
-import NavigationBar from './NavigationBar'
-import SearchCard from './SearchCard';
+import { getTags, Tag } from '../../services';
+import Footer from '../Footer';
+import NavigationBar from '../NavigationBar'
+import SearchCard from '../SearchCard';
 
 interface LayoutProps {
     children: React.ReactNode;

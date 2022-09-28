@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import FlippingCard from '../components/FlippingCard';
+import FlippingCard from '../components/atoms/FlippingCard';
 import { getTradProjects, TradProject } from '../services';
 
 
@@ -23,7 +23,7 @@ const about = ({}) => {
     return (
         <div className='h-full w-full pl-10 pt-5'>
             <h4 className='mb-5 text-2xl font-finlandica-500'>En quelques mots...</h4>
-            <div className='grid grid-cols-1 lg:grid-cols-5 gap-10 mb-5'>
+            <div className='grid grid-cols-1 lg:grid-cols-5 gap-10 mb-10'>
                 <div className='bio lg:col-span-3'>
                 Tout juste arrivée sur les bancs de la classe préparatoire, c’est par le jeu du hasard, au détour d’une conversation, que je commence à m’intéresser à la Corée du Sud. Ce n’est ni la musique ni les dramas qui suscitent mon intérêt, mais la langue, dans toute son élégance. Immédiatement tombée sous le charme de ses sonorités, je me fais la promesse, lorsque mes études se feront moins chronophages, de m’y consacrer. Ce n’est que quelques années plus tard, alors élève en école d’ingénieur, que je me jette à l’eau. À cette époque, je mets toutes les chances de mon côté et candidate au programme d’échange de l’université de POSTECH. Quelques mois plus tard, je m’envole pour la Corée du Sud et y repartirai avec une certitude : celle de faire quelque chose avec ce pays ; avec la langue.
                 <br/><br/>
@@ -61,7 +61,7 @@ const about = ({}) => {
                     </div>
                 </div>
             </div>
-            <h4 className='mb-5 text-2xl font-finlandica-500'>Mes projets de traduction</h4>
+            <h4 className='mb-6 text-2xl font-finlandica-500'>Mes projets de traduction</h4>
             <div className='grid grid-cols-1 lg:grid-cols-4 gap-5 mb-56'>
                 { 
                     orderedProjects.map((project, index) => (
