@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import LoadingImage from '../public/loading.png'
+import LoadingImage from '../../public/loading.png'
 
 
 export default function Loading() {
