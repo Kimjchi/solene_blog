@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import Loading from '../components/Loading';
+import Loading from '../components/atoms/Loading';
 import Pagination from '../components/Pagination';
 import PostCard from '../components/PostCard';
 import { getCategories, getCategoryPosts, getPosts, Post } from '../services';

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import CommentForm from '../../components/CommentForm';
-import Loading from '../../components/Loading';
+import Loading from '../../components/atoms/Loading';
 import PostDetail from '../../components/PostDetail';
 import SimilarArticles from '../../components/SimilarArticles';
 
