@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment';
 import Link from 'next/link';
 import { useSpring, animated } from 'react-spring'
+import Image from 'next/image'
 
 interface postCardProps {
   isFeatured?: boolean;
@@ -27,8 +28,14 @@ const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, in
         </h4>
         <span className='text-gray-700 space-x-1 font-finlandica italic'>{theme}</span>
       </div>
-      <div className='relative overflow-hidden shadow-md pb-80 mb-5'>
-        <img src={image} alt={title} className="object-top absolute h-80 w-full object-cover shadow-lg rounded-lg"></img>
+      <div className='relative overflow-hidden shadow-md rounded-lg mb-5 h-80'>
+        <Image
+          src={image}
+          alt="Picture of the author"
+          layout='fill'
+          objectFit='cover'
+          priority={isFeatured}
+        />
       </div>      
       <p className='line-clamp-5 overflow-hidden text-center text-gray-700 font-normal px-4 lg:px-10 h-48 mb-16'>{excerpt}</p>
       <div className='text-center flex flex-col px-2 items-center bottom-2 absolute w-11/12 -translate-x-2/4 left-2/4'>
