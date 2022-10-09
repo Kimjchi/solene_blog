@@ -365,7 +365,7 @@ export const getSearchedPosts = async (keyword: string, skip: number = 0) => {
 export const getTradProjects = async (): Promise<TradProject[]> => {
     const query = gql`
         query getTradProjects() {
-            traductionProjects {
+            traductionProjects(first: 100) {
                 title
                 platform
                 numberOfSubtitles
