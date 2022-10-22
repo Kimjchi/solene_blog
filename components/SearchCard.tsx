@@ -42,7 +42,7 @@ const fetchData = useCallback(async () => {
         <h4 className='mx-auto font-finlandica-500 mb-5'>RECHERCHE</h4>
         <div className='mb-20 items-center justify-center flex-row w-full' style={{display: 'flex'}}>
             <FontAwesomeIcon icon={faMagnifyingGlass} className="cursor-pointer" onClick={handleSearchSubmit}/>
-            <input placeholder='Search' type="text" required className='focus:outline-none ml-2 green-border-bt w-4/6' value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyDown={handleKeyDown}/>
+            <input placeholder='Search' type="text" required className='focus:outline-none ml-2 yellow-border-bt w-4/6' value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyDown={handleKeyDown}/>
           </div>
         <h4 className='mx-auto font-finlandica-500 mb-5'>MOTS CLES</h4>
         <div className='flex flex-wrap space-x-2 space-y-2 items-center justify-center'>

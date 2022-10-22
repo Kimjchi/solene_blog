@@ -30,7 +30,7 @@ export default function archives () {
           <ul className="w-full overflow-hidden h-1/2 pl-5">
               {posts.map((post) => {
                 return (
-                  <li className='square-list text-lg hover-green' key={post.id}><Link href={`/post/${post.slug}`}>{post.title}</Link></li>
+                  <li className='square-list text-lg hover-yellow' key={post.id}><Link href={`/post/${post.slug}`}>{post.title}</Link></li>
               )})}            
           </ul>
           {posts.length > 0 && <Pagination pageNumber={totalPage} callBack={fetchData}/>}

@@ -38,7 +38,7 @@ const Pagination = ({pageNumber, callBack}: PaginationProps) => {
             {
                 pages.map(number =>  (
                     <span 
-                        className={'cursor-pointer w-10 h-10 justify-center select-none items-center flex' + (currentPage === number ? " green rounded-full": "")} 
+                        className={'cursor-pointer w-10 h-10 justify-center select-none items-center flex' + (currentPage === number ? " yellow rounded-full": "")} 
                         onClick={() => handleClick(number)}
                         key={number}
                     >

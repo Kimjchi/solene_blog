@@ -11,11 +11,11 @@ const Footer = () => {
         <div className='flex flex-col'>
             <span className='font-finlandica-500'>À propos</span>
             <span>Copyright 2022</span>
-            <span>Mentions légales</span>
+            <span><Link href={`/mentions-legales`}>Mentions légales</Link></span>
         </div>
         <div className='flex flex-col'>
             <span className='font-finlandica-500'>Contact</span>
-            <span>adresse@email.com</span>
+            <span><a href="mailto:contact@obangsaek.fr" target="_blank">contact@obangsaek.fr</a></span>
         </div>
     </footer>
   )

@@ -52,14 +52,14 @@ const NavigationBar = () => {
     <>
       <div className='container mx-auto w-full justify-between px-5 pt-8 md:flex hidden font-finlandica-500'>
         {
-          categories.map((category: any) => (<Link replace href={`/${category.slug}`} key={category.slug}><span className='cursor-pointer lg:text-base hover-green'>{category.name}</span></Link>))
+          categories.map((category: any) => (<Link replace href={`/${category.slug}`} key={category.slug}><span className='cursor-pointer lg:text-base hover-yellow'>{category.name}</span></Link>))
         }
       </div>
       <div className='md:hidden'>
         <Menu right isOpen={ isOpen } onOpen={() => setIsOpen(true)} onClose={ () => setIsOpen(false) }>
           <div className='items-center flex-row w-full mb-2' style={{display: 'flex'}}>
             <FontAwesomeIcon icon={faMagnifyingGlass} className="cursor-pointer" onClick={handleSearchSubmit}/>
-            <input placeholder='Search' type="text" required className='focus:outline-none green ml-1' value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyDown={handleKeyDown}/>
+            <input placeholder='Search' type="text" required className='focus:outline-none yellow ml-1' value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyDown={handleKeyDown}/>
           </div>
           {
             categories.map((category: any) => (<Link replace href={`/${category.slug}`} key={category.slug}><span className='cursor-pointer bm-item font-finlandica' onClick={() => setIsOpen(false)}>{category.name}</span></Link>))

@@ -30,7 +30,7 @@ export default function FlippingCard ({imageURL, title, numberOfSubtitles, platf
             <img src={imageURL} alt={title} className="object-top absolute h-64 w-full object-cover shadow-lg rounded-lg" ></img>
         </a.div>   
         <a.div
-            className="h-64 w-full shadow-md absolute cursor-pointer will-change-transform green top-0 text-center font-finlandica-500 rounded-lg"
+            className="h-64 w-full shadow-md absolute cursor-pointer will-change-transform yellow top-0 text-center font-finlandica-500 rounded-lg"
             style={{
                 opacity,
                 transform,

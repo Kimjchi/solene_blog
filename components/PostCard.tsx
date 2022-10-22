@@ -21,7 +21,7 @@ const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, in
   const props: any = useSpring({ to: { opacity: 1, top: "0" }, from: { opacity: 0, top: "100vh" }, delay: 250 + index * 100 })
 
   return (
-    <animated.div className={classes + " shadow-lg p-3 relative bg-white w-full rounded-lg" + ( index % 2 === 0 ? " card" : " text-center green-border")} style={props}>
+    <animated.div className={classes + " shadow-lg p-3 relative bg-white w-full rounded-lg" + ( index % 2 === 0 ? " card" : " text-center yellow-border")} style={props}>
       <div className='text-left mb-2'>
         <h4 className='transition duration-100 cursor-pointer hover:text-violet-900 text-xl font-finlandica-500'>
           <Link href={`/post/${url}`}>{title}</Link>
@@ -41,7 +41,7 @@ const PostCard = ({isFeatured=false, image, excerpt, date, theme, title, url, in
       <div className='text-center flex flex-col px-2 items-center bottom-2 absolute w-11/12 -translate-x-2/4 left-2/4'>
         <div className='mb-3'>
           <Link href={`/post/${url}`}>
-            <span className='transition duration-500 transform hover:-translate-y-1 inline-block green px-6 py-2 cursor-pointer text-lg font-finlandica'>
+            <span className='transition duration-500 transform hover:-translate-y-1 inline-block bg-black	text-white px-6 py-2 cursor-pointer text-lg font-finlandica'>
               Lire
             </span>
           </Link>

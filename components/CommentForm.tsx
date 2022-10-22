@@ -35,7 +35,7 @@ export default function CommentForm({postID}: {postID: string}) {
   return (
     <div className='mt-3 md:w-5/6'>
         <h3 className='ml-3 font-finlandica-500 text-xl mb-5'>Zone de commentaires</h3>
-        <div className='flex flex-col w-full h-full green-border shadow-lg p-3 relative bg-white rounded-lg'>
+        <div className='flex flex-col w-full h-full yellow-border shadow-lg p-3 relative bg-white rounded-lg'>
             <h4 className='ml-3 font-finlandica-500'>{numberOfComments} commentaire(s)</h4>
             <div className='mb-10'>
               {
@@ -52,7 +52,7 @@ export default function CommentForm({postID}: {postID: string}) {
                             <p className=''>{comment.comment}</p>
                           </div>
                           <span 
-                            className='cursor-pointer mr-6 mt-3 hover-green'
+                            className='cursor-pointer mr-6 mt-3 hover-yellow'
                             onClick={() => {
                               setIsReplying(!isReplying || comment.id !== commentReplying?.id); 
                               setCommentReplying(comment); 
@@ -79,7 +79,7 @@ export default function CommentForm({postID}: {postID: string}) {
                           comment.childComments.map(
                             childComment => (
                               <div className='flex' key={childComment.id}>
-                                <div className='border-l-4 border-green'></div>
+                                <div className='border-l-4 border-yellow'></div>
                                 <div className='mx-2 bg-slate-50 flex flex-col pl-5 w-full' key={childComment.id}>
                                   <div className='flex items-center w-full'><h4 className='text-lg bold mr-2'>{childComment.name}</h4> <span>{getHowLongAgo(childComment.createdAt)}</span></div>
                                   <p className=''>{childComment.comment}</p>
@@ -162,23 +162,23 @@ function CommentInputGroup({
         <textarea 
           placeholder=' Ajouter un commentaire' 
           required 
-          className={`focus:outline-none ${commentErr ? "border-rose-500 border" : "green-border"}`}
+          className={`focus:outline-none ${commentErr ? "border-rose-500 border" : "yellow-border"}`}
           value={comment} 
           onChange={(e) => setComment(e.target.value)} 
         />
         { commentErr && <span className='text-rose-500 text-sm mt-0'>Le commentaire ne peut contenir de lien.</span> }
-        <input placeholder=' Nom*' type="text" required className='green-border w-1/4 focus:outline-none' value={name} onChange={(e) => setName(e.target.value)}/>
+        <input placeholder=' Nom*' type="text" required className='yellow-border w-1/4 focus:outline-none' value={name} onChange={(e) => setName(e.target.value)}/>
         <input 
           placeholder=' Adresse e-mail' 
           type="email" 
           required 
-          className={` w-1/4 focus:outline-none ${emailErr ? "border-rose-500 border" : "green-border"}`}
+          className={` w-1/4 focus:outline-none ${emailErr ? "border-rose-500 border" : "yellow-border"}`}
           value={email} 
           onChange={(e) => setEmail(e.target.value)}
         />                      
       </div>
       <div className='relative'>
-        <input type="submit" onClick={handleSubmit} disabled={isDisabled} value="Envoyer" className={`w-20 absolute bottom-0 right-3 ${!isDisabled ? "green cursor-pointer" : ""}`}/>
+        <input type="submit" onClick={handleSubmit} disabled={isDisabled} value="Envoyer" className={`w-20 absolute bottom-0 right-3 ${!isDisabled ? "yellow cursor-pointer" : ""}`}/>
       </div>
       </animated.div>
   )

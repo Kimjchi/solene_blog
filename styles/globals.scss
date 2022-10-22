@@ -66,7 +66,7 @@ a {
 }
 
 .banner {
-  background-color: #d0d172;
+  background-color: #E0C200;
   font-family: "Megrim", "Zen Tokyo Zoo", cursive;
 }
 
@@ -80,7 +80,7 @@ a {
 }
 
 .footer {
-  background-color: #d0d172;
+  background-color: #E0C200;
 }
 
 .card {
@@ -93,28 +93,28 @@ a {
   background-color: #565885;
 }
 
-.green {
-  background-color: #d0d172;
+.yellow {
+  background-color: #E0C200;
 }
 
-.hover-green:hover {
-  color: #d0d172;
+.hover-yellow:hover {
+  color: #E0C200;
 }
 
 .square-list {
   list-style-type: square;
 }
 
-.green-border {
-  border: 1px #d0d172 solid;
+.yellow-border {
+  border: 1px #E0C200 solid;
 }
 
-.border-green {
-  border-color: #d0d172;
+.border-yellow {
+  border-color: #E0C200;
 }
 
-.green-border-bt {
-  border-bottom: 1px #d0d172 solid;
+.yellow-border-bt {
+  border-bottom: 1px #E0C200 solid;
 }
 
 /* Position and sizing of burger button */
@@ -159,7 +159,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* General sidebar styles */
 .bm-menu {
   //background: #373a47;
-  background: #d0d172;
+  background: #E0C200;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }
@@ -183,4 +183,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
+}
+
+.mentions-legales {
+  a {
+    color: #E0C200;
+  }
 }
