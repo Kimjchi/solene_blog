@@ -1,4 +1,5 @@
 import { request, gql } from 'graphql-request';
+import moment from "moment";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT || '';
 
@@ -46,6 +47,15 @@ export interface TradProject {
     genres: Genre[];
     koreanName?: string;
     priority?: Priority;
+}
+
+export interface Photo {
+    id: string;
+    title: string;
+    image: Image;
+    location: string;
+    date: string;
+    publishedAt: string;
 }
 
 export interface Genre {
@@ -436,4 +446,77 @@ export const submitChildComment = async (obj: any) => {
     })
 
     return result.json()
+}
+
+export enum PhotoAndPost {
+    photo = "PHOTO",
+    post = "POST"
+}
+
+export interface PhotoAndTravelPost {
+    type: PhotoAndPost
+    data: Photo | Post
+    count: number
+}
+
+export const getPhotosAndTravelPosts = async ({skipPosts, skipPhotos}:{skipPosts: number, skipPhotos: number} ): Promise<PhotoAndTravelPost[]> => {
+    const query = gql`
+        query getPhotos($skipPhotos: Int!, $skipPosts: Int!) {
+            photosConnection(orderBy: publishedAt_DESC, stage: PUBLISHED, first: 12, skip: $skipPhotos) {
+                aggregate {
+                  count
+                }
+                edges {
+                  node {
+                    date
+                    id
+                    image {
+                      url
+                    }
+                    location
+                    title
+                    publishedAt
+                  }
+                }
+              }
+            postsConnection(stage: PUBLISHED, where: {category: {slug: "travels"}}, first: 6, orderBy: publishedAt_DESC, skip: $skipPosts) {
+                aggregate {
+                    count
+                }
+                edges {
+                    node {
+                        category {
+                            name
+                        }
+                        excerpt
+                        featuredImage {
+                            url
+                        }
+                        featuredPost
+                        id
+                        publishedAt
+                        slug
+                        title
+                        tags {
+                            name
+                        }
+                    }
+                }
+            }
+        }
+    `
+
+    const results = await request(graphqlAPI, query, { skipPhotos, skipPosts });
+    return [
+        ...results.photosConnection.edges.map((photo: any) => ({
+            type: PhotoAndPost.photo,
+            data: photo.node,
+            count: results.photosConnection.aggregate.count
+        })), 
+        ...results.postsConnection.edges.map((post: any) => ({
+            type: PhotoAndPost.post,
+            data: post.node,
+            count: results.postsConnection.aggregate.count
+        }))
+    ].sort((a: PhotoAndTravelPost, b: PhotoAndTravelPost) => moment(b.data.publishedAt).diff(moment(a.data.publishedAt)));
 }
