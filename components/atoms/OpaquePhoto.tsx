@@ -22,7 +22,7 @@ export default function OpaquePhoto ({imageURL, title, location, date, index}: O
         }, 250 * (index + 1))    
     }, [])
   return (
-    <div className={"flex items-center justify-center relative" + (index % 3 === 0 ? " ": "")} onMouseLeave={() => setHovered(false)} onMouseEnter={() => setHovered(true)}>
+    <div className={"flex h-80 items-center justify-center relative" + (index % 3 === 0 ? " ": "")} onMouseLeave={() => setHovered(false)} onMouseEnter={() => setHovered(true)}>
         <a.div className='absolute overflow-hidden shadow-md pb-80 cursor-pointer will-change-transform w-full top-0' style={{ opacity: opacity.to(o => 1 - o) }}>
             <img src={imageURL} alt={title} className="object-top absolute h-80 w-full object-cover shadow-lg rounded-lg" ></img>
         </a.div>   

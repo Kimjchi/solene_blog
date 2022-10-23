@@ -61,7 +61,7 @@ import { getPhotosAndTravelPosts, Photo, PhotoAndPost, PhotoAndTravelPost, Post 
             {
             isLoading && <Loading />
             }
-            <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-4 overflow-hidden h-1/2 mb-8 -mt-8 pt-10 grid-rows-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-4 overflow-hidden h-1/2 mb-8 -mt-8 pt-10 lg:grid-rows-4">
                 {!isLoading && photosAndTravelPosts.map(({data, type}, index) => {
                   return (
                     <>
@@ -77,7 +77,7 @@ import { getPhotosAndTravelPosts, Photo, PhotoAndPost, PhotoAndTravelPost, Post 
                           url={(data as Post).slug}
                           index={index}
                           tags={(data as Post).tags.map(({name}) => name)}
-                          optionalClasses="row-span-2"
+                          optionalClasses="lg:row-span-2"
                         /> : <OpaquePhoto 
                             title={data.title} 
                             imageURL={(data as Photo).image.url} 
