@@ -66,7 +66,7 @@ const NavigationBar = () => {
           }
           <div className='introduction text-center w-full py-1 mt-5'>
             <div className='relative overflow-hidden pb-40 mb-4'>
-              <img src='https://media.graphassets.com/gQJpz2A9R0aQkJrnie2W' alt='Une photo de Solene' className="object-top absolute h-40 w-full object-contain rounded-lg"></img>
+              <img src='https://media.graphassets.com/OK4eX2tTIqsWGCm01aWA' alt='Une photo de Solene' className="object-top absolute h-40 w-full object-contain rounded-lg"></img>
             </div>
             <h4 className='mx-auto font-finlandica-500 text-center'>Introduction</h4>
             <p className='mx-auto text-center px-2'>

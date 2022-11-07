@@ -6,12 +6,17 @@ const DISPLAYED_LIMIT = 9
 
 interface PaginationProps {
     pageNumber: number;
+    category?: string;
     callBack?: (currentPage: number) => void;
 }
 
-const Pagination = ({pageNumber, callBack}: PaginationProps) => {
+const Pagination = ({pageNumber, callBack, category}: PaginationProps) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pages, setPages] = useState<number[]>([]);
+
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [category])
 
     useEffect(() => {        
         setPages(() => {
@@ -26,8 +31,8 @@ const Pagination = ({pageNumber, callBack}: PaginationProps) => {
     }, [currentPage, pageNumber])
 
     const handleClick = (newCurrentPage: number) => {
-        setCurrentPage(() => {
-            callBack && callBack(newCurrentPage);
+        setCurrentPage((prev) => {
+            prev !== newCurrentPage && callBack && callBack(newCurrentPage);
             return newCurrentPage;
         })        
     }

@@ -20,7 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
                 <div className='left-side flex-col w-1/6 mt-1 md:flex hidden'>
                     <div className='introduction text-center w-full py-1 mb-20'>
                         <div className='h-40 w-40 mx-auto mb-4'>
-                            <img src='https://media.graphassets.com/gQJpz2A9R0aQkJrnie2W' alt='Une photo de Solene' className="rounded-full h-full w-full object-cover"></img>
+                            <img src='https://media.graphassets.com/OK4eX2tTIqsWGCm01aWA' alt='Une photo de Solene' className="rounded-full h-full w-full object-cover"></img>
                         </div>
                         <p className='mx-auto text-center px-2'>
                         Bienvenue à toi, lecteur !

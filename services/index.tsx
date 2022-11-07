@@ -456,10 +456,15 @@ export enum PhotoAndPost {
 export interface PhotoAndTravelPost {
     type: PhotoAndPost
     data: Photo | Post
-    count: number
 }
 
-export const getPhotosAndTravelPosts = async ({skipPosts, skipPhotos}:{skipPosts: number, skipPhotos: number} ): Promise<PhotoAndTravelPost[]> => {
+export interface PhotoAndTravelResults {
+    data: PhotoAndTravelPost[];
+    photosCount: number;
+    postsCount: number;
+}
+
+export const getPhotosAndTravelPosts = async ({skipPosts, skipPhotos}:{skipPosts: number, skipPhotos: number} ): Promise<PhotoAndTravelResults> => {
     const query = gql`
         query getPhotos($skipPhotos: Int!, $skipPosts: Int!) {
             photosConnection(orderBy: publishedAt_DESC, stage: PUBLISHED, first: 12, skip: $skipPhotos) {
@@ -507,16 +512,18 @@ export const getPhotosAndTravelPosts = async ({skipPosts, skipPhotos}:{skipPosts
     `
 
     const results = await request(graphqlAPI, query, { skipPhotos, skipPosts });
-    return [
+    return {
+        data: [
         ...results.photosConnection.edges.map((photo: any) => ({
             type: PhotoAndPost.photo,
             data: photo.node,
-            count: results.photosConnection.aggregate.count
         })), 
         ...results.postsConnection.edges.map((post: any) => ({
             type: PhotoAndPost.post,
             data: post.node,
-            count: results.postsConnection.aggregate.count
         }))
-    ].sort((a: PhotoAndTravelPost, b: PhotoAndTravelPost) => moment(b.data.publishedAt).diff(moment(a.data.publishedAt)));
+    ].sort((a: PhotoAndTravelPost, b: PhotoAndTravelPost) => moment(b.data.publishedAt).diff(moment(a.data.publishedAt))),
+    photosCount: results.photosConnection.aggregate.count,
+    postsCount: results.postsConnection.aggregate.count
+};
 }
