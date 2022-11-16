@@ -10,9 +10,9 @@ import { getCategories, getTags } from '../services'
 
 const INITIAL_CATEGORIES = [
   {name: "Accueil", slug: ""},
-  {name: "Cinéma", slug: "cinema"},
-  {name: "Littérature", slug: "literature"},
+  {name: "Littérature & Cinéma", slug: "literature-and-cinema"},
   {name: "Arts & Histoire", slug: "art-and-history"},
+  {name: "Culture, Langue & Société", slug: "culture-language-and-society"},
   {name: "Expos & Évènements", slug: "exhibitions-and-events"},
   {name: "Carnets de voyage", slug: "travels"},
   {name: "À propos", slug: "about"},
