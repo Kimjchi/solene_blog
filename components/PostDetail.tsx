@@ -50,6 +50,22 @@ export default function PostDetail({
               const children2 = typeObj.children.map((item: any, itemIndex: any) => getContentFragment(itemIndex, item.text, item));
               return getContentFragment(index, children2, typeObj, typeObj.type, obj.className)
           })
+          case 'bulleted-list':
+              return <ul key={index} className={`pl-5 list-disc text-md font-semibold mb-4 ${className}`}>{
+                obj.children.map((typeObj: any, index: any) => {
+                const children2 = typeObj.children.map((item: any, itemIndex: any) => getContentFragment(itemIndex, item.text, item));
+                return getContentFragment(index, children2, typeObj, typeObj.type, obj.className)})
+              }</ul> 
+          case 'list-item':
+            return obj.children.map((typeObj: any, index: any) => {
+              const children2 = typeObj.children.map((item: any, itemIndex: any) => getContentFragment(itemIndex, item.text, item));
+              return getContentFragment(index, children2, typeObj, typeObj.type, obj.className)
+          })
+          case 'list-item-child':
+            return obj.children.map((typeObj: any, index: any) => {
+              const children2 = typeObj.children.map((item: any, itemIndex: any) => getContentFragment(itemIndex, item.text, item));
+              return <li>{children2}</li>
+          })
           case 'image':
             return (
               <img
