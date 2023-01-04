@@ -10,8 +10,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return( 
   <Layout>
     <Head>
-        <title>Obangsaek</title>
-        <meta property="og:title" content="Obangsaek" key="title" />
+        <title>Obangsaek | La Corée du Sud dans tous ses états</title>
+        <meta property="og:title" content="Obangsaek | La Corée du Sud dans tous ses états" key="title" />
+        <meta name="description" content="Author: Sol. C., Un blog sur la Corée. Ici on parle de littérature et de cinéma, d’arts et d’histoire et de bien d’autres choses."></meta>
       </Head>
     <Component {...pageProps} />
     <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-DLBSFM325M"></Script>

@@ -21,7 +21,7 @@ export default function PostDetail({
     author='Anonymous',
     tags=[]
 }: postDetailProps) {
-    const getContentFragment = (index: number, text: any, obj: any, type = '') => {
+    const getContentFragment = (index: number, text: any, obj: any, type = '', className='') => {
         let modifiedText = text;
     
         if (obj) {
@@ -40,11 +40,16 @@ export default function PostDetail({
     
         switch (type) {
           case 'heading-three':
-            return <h3 key={index} className="text-xl font-semibold mb-4">{modifiedText.map((item:any, i: number) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
+            return <h3 key={index} className={`text-xl font-semibold mb-4 ${className}`}>{modifiedText.map((item:any, i: number) => <React.Fragment key={i}>{item}</React.Fragment>)}</h3>;
           case 'paragraph':
-            return <p key={index} className="mb-8 text-lg">{modifiedText.map((item: any, i:number) => <React.Fragment key={i}>{item}</React.Fragment>)}</p>;
+            return <p key={index} className={`mb-8 text-lg ${className}`}>{modifiedText.map((item: any, i:number) => <React.Fragment key={i}>{item}</React.Fragment>)}</p>;
           case 'heading-four':
-            return <h4 key={index} className="text-md font-semibold mb-4">{modifiedText.map((item: any, i: number) => <React.Fragment key={i}>{item}</React.Fragment>)}</h4>;
+            return <h4 key={index} className={`text-md font-semibold mb-4 ${className}`}>{modifiedText.map((item: any, i: number) => <React.Fragment key={i}>{item}</React.Fragment>)}</h4>;
+          case 'class':
+            return obj.children.map((typeObj: any, index: any) => {
+              const children2 = typeObj.children.map((item: any, itemIndex: any) => getContentFragment(itemIndex, item.text, item));
+              return getContentFragment(index, children2, typeObj, typeObj.type, obj.className)
+          })
           case 'image':
             return (
               <img
