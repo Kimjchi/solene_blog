@@ -51,7 +51,7 @@ export default function PostDetail({
               return getContentFragment(index, children2, typeObj, typeObj.type, obj.className)
           })
           case 'bulleted-list':
-              return <ul key={index} className={`pl-5 list-disc text-md font-semibold mb-4 ${className}`}>{
+              return <ul key={index} className={`pl-5 list-disc text-lg mb-4 ${className}`}>{
                 obj.children.map((typeObj: any, index: any) => {
                 const children2 = typeObj.children.map((item: any, itemIndex: any) => getContentFragment(itemIndex, item.text, item));
                 return getContentFragment(index, children2, typeObj, typeObj.type, obj.className)})
