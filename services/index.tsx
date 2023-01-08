@@ -22,8 +22,9 @@ export interface lightPost {
     featuredImage: Image;
     title: string;
     slug: string;
-    publishedAt: string;
+    createdAt: string;
     category: category;
+    displayedDate?: string;
 }
 
 export interface Post {
@@ -33,9 +34,10 @@ export interface Post {
     title: string;
     excerpt: string;
     slug: string;
-    publishedAt: string;
+    createdAt: string;
     category: category;
     tags: Tag[];
+    displayedDate?: string;
 }
 
 export interface TradProject {
@@ -55,7 +57,7 @@ export interface Photo {
     image: Image;
     location: string;
     date: string;
-    publishedAt: string;
+    createdAt: string;
 }
 
 export interface Genre {
@@ -81,7 +83,7 @@ export interface BaseComment {
 export const getPosts = async ({first = 6, skip = 0}: {first?: number, skip?: number}) => {
     const query = gql`
         query GetPosts($first: Int!, $skip: Int!) {
-            postsConnection(stage: PUBLISHED, first: $first, orderBy: publishedAt_DESC, skip: $skip, where: {featuredPost: false}) {
+            postsConnection(stage: PUBLISHED, first: $first, orderBy: createdAt_DESC, skip: $skip, where: {featuredPost: false}) {
                 aggregate {
                     count
                 }
@@ -96,7 +98,8 @@ export const getPosts = async ({first = 6, skip = 0}: {first?: number, skip?: nu
                     }
                     featuredPost
                     id
-                    publishedAt
+                    createdAt
+                    displayedDate
                     slug
                     title
                     tags {
@@ -105,7 +108,7 @@ export const getPosts = async ({first = 6, skip = 0}: {first?: number, skip?: nu
                   }
                 }
             }
-            posts(where: {featuredPost: true}, orderBy: publishedAt_DESC) {
+            posts(where: {featuredPost: true}, orderBy: createdAt_DESC) {
                 category {
                     name
                 }
@@ -115,7 +118,8 @@ export const getPosts = async ({first = 6, skip = 0}: {first?: number, skip?: nu
                 }
                 featuredPost
                 id
-                publishedAt
+                createdAt
+                displayedDate
                 slug
                 title
                 tags {
@@ -132,14 +136,15 @@ export const getPosts = async ({first = 6, skip = 0}: {first?: number, skip?: nu
 export const getArchivePosts = async ({first = 10, skip = 0}: {first?: number, skip?: number}) => {
     const query = gql`
         query GetArchivePosts($first: Int!, $skip: Int!) {
-            postsConnection(stage: PUBLISHED, first: $first, orderBy: publishedAt_DESC, skip: $skip) {
+            postsConnection(stage: PUBLISHED, first: $first, orderBy: createdAt_DESC, skip: $skip) {
                 aggregate {
                     count
                 }
                 edges {
                   node {
                     id
-                    publishedAt
+                    createdAt
+                    displayedDate
                     slug
                     title
                   }
@@ -155,7 +160,7 @@ export const getArchivePosts = async ({first = 10, skip = 0}: {first?: number, s
 export const getCategoryPosts = async ({category, skip = 0}: {category: string, skip?: number}) => {
     const query = gql`
         query getCategoryPosts($category: String!, $skip: Int!) {
-            postsConnection(stage: PUBLISHED, where: {category: {slug: $category}}, first: 6, orderBy: publishedAt_DESC, skip: $skip) {
+            postsConnection(stage: PUBLISHED, where: {category: {slug: $category}}, first: 6, orderBy: createdAt_DESC, skip: $skip) {
                 aggregate {
                     count
                 }
@@ -170,7 +175,8 @@ export const getCategoryPosts = async ({category, skip = 0}: {category: string, 
                         }
                         featuredPost
                         id
-                        publishedAt
+                        createdAt
+                        displayedDate
                         slug
                         title
                         tags {
@@ -192,14 +198,15 @@ export const getSimilarPosts = async (category: string = '', slug: string, tags:
             posts(
                 where: {slug_not: $slug, OR: [{category: {name: $category}}, {tags_some: {id_in:$tags}}]}
                 stage: PUBLISHED
-                orderBy: publishedAt_DESC
+                orderBy: createdAt_DESC
                 first: 4
             ) {
                 featuredImage {
                   url
                 }
                 id
-                publishedAt
+                createdAt
+                displayedDate
                 slug
                 title
                 category {
@@ -208,7 +215,7 @@ export const getSimilarPosts = async (category: string = '', slug: string, tags:
             }
             postsConnection(
                 first: 4
-                orderBy: publishedAt_DESC
+                orderBy: createdAt_DESC
                 where: {slug_not: $slug}
             ) {
                 edges {
@@ -217,7 +224,8 @@ export const getSimilarPosts = async (category: string = '', slug: string, tags:
                             url
                         }
                         id
-                        publishedAt
+                        createdAt
+                        displayedDate
                         slug
                         title
                         category {
@@ -263,7 +271,7 @@ export const getPostDetails = async (slug: string) => {
                 }
                 featuredPost
                 id
-                publishedAt
+                createdAt
                 slug
                 title
                 content {
@@ -273,6 +281,7 @@ export const getPostDetails = async (slug: string) => {
                     id
                     name
                 }
+                displayedDate
             }
         }
     `
@@ -301,7 +310,7 @@ export const getTags = async (): Promise<Tag[]> => {
 export const getTagPosts = async (slug: string, skip: number = 0) => {
     const query = gql`
         query getTagPosts($slug: String!, $skip: Int!) {
-            postsConnection(where: {tags_some: {slug: $slug}}, first: 6, orderBy: publishedAt_DESC, skip: $skip, stage: PUBLISHED) {
+            postsConnection(where: {tags_some: {slug: $slug}}, first: 6, orderBy: createdAt_DESC, skip: $skip, stage: PUBLISHED) {
                 aggregate {
                   count
                 }
@@ -316,7 +325,8 @@ export const getTagPosts = async (slug: string, skip: number = 0) => {
                     }
                     featuredPost
                     id
-                    publishedAt
+                    createdAt
+                    displayedDate
                     slug
                     title
                     tags {
@@ -338,7 +348,7 @@ export const getSearchedPosts = async (keyword: string, skip: number = 0) => {
             postsConnection(
                 where: {OR: [{_search: $keyword}, {tags_some: {name_contains:$keyword}}]}, 
                 first: 4, 
-                orderBy: publishedAt_DESC, 
+                orderBy: createdAt_DESC, 
                 skip: $skip, 
                 stage: PUBLISHED
             ) {
@@ -356,7 +366,8 @@ export const getSearchedPosts = async (keyword: string, skip: number = 0) => {
                     }
                     featuredPost
                     id
-                    publishedAt
+                    createdAt
+                    displayedDate
                     slug
                     title
                     tags {
@@ -402,7 +413,7 @@ export const getPostComments = async (postID: string): Promise<Comment[]> => {
     const query = gql`
         query GetPostComments($postID: ID!) {
             comments(
-            orderBy: publishedAt_ASC
+            orderBy: createdAt_ASC
             where: {post: {id: $postID}}
             ) {
             comment
@@ -467,7 +478,7 @@ export interface PhotoAndTravelResults {
 export const getPhotosAndTravelPosts = async ({skipPosts, skipPhotos}:{skipPosts: number, skipPhotos: number} ): Promise<PhotoAndTravelResults> => {
     const query = gql`
         query getPhotos($skipPhotos: Int!, $skipPosts: Int!) {
-            photosConnection(orderBy: publishedAt_DESC, stage: PUBLISHED, first: 12, skip: $skipPhotos) {
+            photosConnection(orderBy: createdAt_DESC, stage: PUBLISHED, first: 12, skip: $skipPhotos) {
                 aggregate {
                   count
                 }
@@ -480,11 +491,11 @@ export const getPhotosAndTravelPosts = async ({skipPosts, skipPhotos}:{skipPosts
                     }
                     location
                     title
-                    publishedAt
+                    createdAt
                   }
                 }
               }
-            postsConnection(stage: PUBLISHED, where: {category: {slug: "travels"}}, first: 6, orderBy: publishedAt_DESC, skip: $skipPosts) {
+            postsConnection(stage: PUBLISHED, where: {category: {slug: "travels"}}, first: 6, orderBy: createdAt_DESC, skip: $skipPosts) {
                 aggregate {
                     count
                 }
@@ -499,7 +510,8 @@ export const getPhotosAndTravelPosts = async ({skipPosts, skipPhotos}:{skipPosts
                         }
                         featuredPost
                         id
-                        publishedAt
+                        createdAt
+                        displayedDate
                         slug
                         title
                         tags {
@@ -522,7 +534,7 @@ export const getPhotosAndTravelPosts = async ({skipPosts, skipPhotos}:{skipPosts
             type: PhotoAndPost.post,
             data: post.node,
         }))
-    ].sort((a: PhotoAndTravelPost, b: PhotoAndTravelPost) => moment(b.data.publishedAt).diff(moment(a.data.publishedAt))),
+    ].sort((a: PhotoAndTravelPost, b: PhotoAndTravelPost) => moment(b.data.createdAt).diff(moment(a.data.createdAt))),
     photosCount: results.photosConnection.aggregate.count,
     postsCount: results.postsConnection.aggregate.count
 };

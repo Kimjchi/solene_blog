@@ -73,7 +73,7 @@ import { getPhotosAndTravelPosts, Photo, PhotoAndPost, PhotoAndTravelPost, Post 
                             theme={(data as Post).category?.name} 
                             image={(data as Post).featuredImage.url} 
                             excerpt={(data as Post).excerpt} 
-                            date={new Date(data.publishedAt)}
+                            date={new Date((data as Post).displayedDate || data.createdAt)}
                             key={data.id}
                             url={(data as Post).slug}
                             index={index}

@@ -13,7 +13,8 @@ interface PostDetailsProps {
     title: string;
     excerpt: string;
     slug: string;
-    publishedAt: string;
+    createdAt: string;
+    displayedDate: string;
     category: category;
     content: any
     author: any
@@ -54,7 +55,7 @@ export default function PostDetails({slug}: {slug: string}) {
             theme={post?.category?.name || ""} 
             image={post?.featuredImage.url || ""} 
             content={post?.content?.raw} 
-            date={new Date(post?.publishedAt || "")}
+            date={new Date(post?.displayedDate || post?.createdAt || "")}
             author={post?.author?.name}
             tags={post?.tags || []}
         />

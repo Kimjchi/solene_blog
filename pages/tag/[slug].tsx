@@ -43,7 +43,7 @@ export default function TagPage({ slug }: TagPageProps) {
                         theme={post.category?.name} 
                         image={post.featuredImage.url} 
                         excerpt={post.excerpt} 
-                        date={new Date(post.publishedAt)}
+                        date={new Date(post.displayedDate || post.createdAt)}
                         key={post.id}
                         url={post.slug}
                         index={index + 1}

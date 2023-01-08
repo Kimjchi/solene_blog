@@ -20,7 +20,7 @@ export default function SimilarArticles({lightPosts}: SimilarArticlesProps) {
                                 <img src={post.featuredImage?.url} alt={post.title} className="object-top absolute h-52 w-full object-cover shadow-lg rounded-lg"></img>
                             </div>
                             <h4 className=''>{post.title}</h4>
-                            <h4 className=''>{moment(post.publishedAt).format('MMM DD, YYYY') + " " + (post?.category?.name || '') }</h4>
+                            <h4 className=''>{moment(post.displayedDate || post.createdAt).format('MMM DD, YYYY') + " " + (post?.category?.name || '') }</h4>
                         </div>
                     </Link>
                 ))
