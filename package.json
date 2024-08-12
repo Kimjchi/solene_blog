@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.0",
@@ -14,30 +15,32 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.4.0",
     "graphql": "^16.5.0",
-    "graphql-request": "^4.3.0",
-    "html-react-parser": "^3.0.0",
+    "graphql-request": "^7.1.0",
+    "html-react-parser": "^5.1.12",
     "moment": "^2.29.4",
-    "next": "latest",
+    "next": "^14.2.5",
     "react": "^18.2.0",
     "react-burger-menu": "^3.0.8",
-    "react-dom": "18.1.0",
-    "react-google-recaptcha": "^2.1.0",
+    "react-dom": "18.3.1",
+    "react-google-recaptcha": "^3.1.0",
     "react-multi-carousel": "^2.8.2",
     "react-spring": "^9.5.4",
     "sass": "^1.53.0"
   },
   "devDependencies": {
-    "@types/node": "17.0.35",
-    "@types/react": "18.0.9",
+    "@types/node": "22.2.0",
+    "@types/react": "18.3.3",
     "@types/react-burger-menu": "^2.8.3",
-    "@types/react-dom": "18.0.5",
+    "@types/react-dom": "18.3.0",
     "@types/react-google-recaptcha": "^2.1.5",
-    "@typescript-eslint/parser": "^5.30.6",
+    "@typescript-eslint/parser": "^8.1.0",
     "autoprefixer": "^10.4.7",
-    "eslint": "^8.19.0",
+    "eslint": "^9.9.0",
+    "eslint-config-next": "14.2.5",
     "postcss": "^8.4.14",
-    "prettier": "^2.7.1",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.1.2",
-    "typescript": "^4.7.4"
-  }
+    "typescript": "^5.5.4"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

@@ -9,10 +9,9 @@ type Data = {
 
 export default async function comments(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
-
-  const { name, email, comment, parentCommentID, captcha } = req.body; 
+  const { name, email, comment, parentCommentID, captcha } = req.body;
 
   if (!captcha) {
     return res.status(422).json({
@@ -62,11 +61,16 @@ export default async function comments(
           "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
         },
         method: "POST",
-      }
+      },
     );
     const captchaValidation = await response.json();
     if (captchaValidation.success) {
-      const result = await graphQLClient.request(query, { name, email, comment, parentCommentID });
+      const result = await graphQLClient.request(query, {
+        name,
+        email,
+        comment,
+        parentCommentID,
+      });
       const publishingResult = await graphQLClient.request(publishingQuery, {
         childCommentID: result.createChildComment.id,
       });
