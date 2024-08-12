@@ -19,9 +19,8 @@ export default function CategoryPage({ category }: CategoryPageProps) {
     async (selectedPage: number) => {
       setIsLoading(true);
       const skip = (selectedPage - 1) * POSTS_DISPLAYED;
-      const postsConnection = await (getCategoryPosts({ category, skip }) ||
-        []);
-      const posts: Post[] = postsConnection.edges.map((edge: any) => edge.node);
+      const postsConnection = await getCategoryPosts({ category, skip });
+      const posts: Post[] = postsConnection.edges.map((edge) => edge.node);
       setPosts(posts);
       setTotalPage(
         Math.ceil(postsConnection.aggregate.count / POSTS_DISPLAYED),

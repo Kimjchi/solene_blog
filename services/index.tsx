@@ -8,6 +8,7 @@ export interface Category {
 }
 
 export interface Tag {
+  id: string;
   name: string;
   slug: string;
   posts: any;
@@ -37,7 +38,6 @@ export interface PostDetailsProps extends Post {
   content: any;
   author: any;
 }
-
 
 export interface PostsConnection {
   aggregate: {
@@ -371,7 +371,9 @@ export const getPostDetails = async (slug: string) => {
     }
   `;
 
-  const results = await request<{ post: PostDetailsProps }>(graphqlAPI, query, { slug });
+  const results = await request<{ post: PostDetailsProps }>(graphqlAPI, query, {
+    slug,
+  });
   return results.post;
 };
 

@@ -1,19 +1,19 @@
 import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
 import Pagination from "../components/Pagination";
-import { getArchivePosts } from "../services";
+import { getArchivePosts, Post } from "../services";
 
 const POSTS_DISPLAYED = 10;
 
 export default function archives() {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [totalPage, setTotalPage] = useState<number>(1);
 
   // declare the async data fetching function
   const fetchData = useCallback(async (selectedPage: number) => {
     const skip = (selectedPage - 1) * POSTS_DISPLAYED;
-    const postsConnection: any = await (getArchivePosts({ skip }) || []);
-    const posts = postsConnection.edges.map((edge: any) => edge.node);
+    const postsConnection = await getArchivePosts({ skip });
+    const posts = postsConnection.edges.map((edge) => edge.node);
     setPosts(posts);
     setTotalPage(Math.ceil(postsConnection.aggregate.count / POSTS_DISPLAYED));
   }, []);

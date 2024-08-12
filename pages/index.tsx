@@ -26,7 +26,7 @@ export default function Home() {
       first,
     });
     const { postsConnection, featuredPosts } = data;
-    const posts: Post[] = postsConnection.edges.map((edge: any) => edge.node);
+    const posts: Post[] = postsConnection.edges.map((edge) => edge.node);
     if (skip === 0 && featuredPosts.length > 0)
       setPosts([...posts, featuredPosts[0]]);
     else setPosts(posts);

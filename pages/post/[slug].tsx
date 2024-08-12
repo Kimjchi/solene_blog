@@ -13,7 +13,6 @@ import {
   Tag,
 } from "../../services";
 
-
 export default function PostDetails({ slug }: { slug: string }) {
   const [post, setPost] = useState<PostDetailsProps>();
   const [lightPosts, setLightPosts] = useState<lightPost[]>([]);
@@ -26,7 +25,7 @@ export default function PostDetails({ slug }: { slug: string }) {
     const lightPosts = await getSimilarPosts(
       post?.category?.name,
       slug,
-      post?.tags?.map((tag: any) => tag.id),
+      post?.tags?.map((tag) => tag.id),
     );
     setPost(post);
     setLightPosts(lightPosts);

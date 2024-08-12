@@ -67,15 +67,20 @@ export default async function comments(
     const captchaValidation = await response.json();
 
     if (captchaValidation.success) {
-      const result = await graphQLClient.request(query, {
+      const result = await graphQLClient.request<{
+        createComment: { id: string };
+      }>(query, {
         name,
         email,
         comment,
         postID,
       });
-      const publishingResult = await graphQLClient.request(publishingQuery, {
-        commentID: result.createComment.id,
-      });
+      const publishingResult = await graphQLClient.request<any>(
+        publishingQuery,
+        {
+          commentID: result.createComment.id,
+        },
+      );
       return res.status(200).send(publishingResult);
     }
   } catch (error: any) {

@@ -19,8 +19,8 @@ export default function SearchPage({ keyword }: TagPageProps) {
     async (selectedPage: number) => {
       setIsLoading(true);
       const skip = (selectedPage - 1) * POSTS_DISPLAYED;
-      const data = await (getSearchedPosts(keyword, skip) || []);
-      const posts: Post[] = data.edges.map((edge: any) => edge.node);
+      const data = await getSearchedPosts(keyword, skip);
+      const posts: Post[] = data.edges.map((edge) => edge.node);
       setPosts(posts);
       setTotalPage(Math.ceil(data.aggregate.count / POSTS_DISPLAYED));
       setIsLoading(false);
@@ -55,7 +55,7 @@ export default function SearchPage({ keyword }: TagPageProps) {
                 key={post.id}
                 url={post.slug}
                 index={index + 1}
-                tags={post.tags.map(({ name }: any) => name)}
+                tags={post.tags.map(({ name }) => name)}
               />
             );
           })}

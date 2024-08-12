@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import Link from "next/link";
 
-import { getCategories, getTags } from "../services";
+import { Category, getCategories, getTags, Tag } from "../services";
 
 const INITIAL_CATEGORIES = [
   { name: "Accueil", slug: "" },
@@ -20,8 +20,8 @@ const INITIAL_CATEGORIES = [
 
 const NavigationBar = () => {
   const router = useRouter();
-  const [categories, setCategories] = useState<any>(INITIAL_CATEGORIES);
-  const [tags, setTags] = useState<any>([]);
+  const [categories, setCategories] = useState<Category[]>(INITIAL_CATEGORIES);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>("");
 
@@ -33,10 +33,10 @@ const NavigationBar = () => {
         { name: "À propos", slug: "about" },
       ]),
     );
-    getTags().then((newTags: any) =>
+    getTags().then((newTags) =>
       setTags(
         newTags
-          .sort((a: any, b: any) => {
+          .sort((a, b) => {
             return b.posts.length - a.posts.length;
           })
           .slice(0, 10),
@@ -133,7 +133,7 @@ const NavigationBar = () => {
           <div className="text-center mt-2 mb-2 pb-2">
             <h4 className="mx-auto font-finlandica-500">Tags</h4>
             <div className="flex flex-wrap space-x-2 space-y-2 items-center mb-5">
-              {tags.map(({ name, slug }: any, index: number) => (
+              {tags.map(({ name, slug }, index: number) => (
                 <Link href={`/tag/${slug}`} key={slug}>
                   <span
                     key={slug}

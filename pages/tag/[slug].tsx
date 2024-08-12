@@ -17,7 +17,7 @@ export default function TagPage({ slug }: TagPageProps) {
     async (selectedPage: number) => {
       const skip = (selectedPage - 1) * POSTS_DISPLAYED;
       const data = await getTagPosts(slug, skip);
-      const posts = data.edges.map((edge: any) => edge.node);
+      const posts = data.edges.map((edge) => edge.node);
       setPosts(posts);
       setTotalPage(Math.ceil(data.aggregate.count / POSTS_DISPLAYED));
     },
@@ -50,7 +50,7 @@ export default function TagPage({ slug }: TagPageProps) {
               key={post.id}
               url={post.slug}
               index={index + 1}
-              tags={post.tags.map(({ name }: any) => name)}
+              tags={post.tags.map(({ name }) => name)}
             />
           );
         })}
@@ -71,7 +71,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 export async function getStaticPaths() {
   const tags = await getTags();
   return {
-    paths: tags.map(({ slug }: any) => ({ params: { slug: slug || "" } })),
+    paths: tags.map(({ slug }) => ({ params: { slug: slug || "" } })),
     fallback: false,
   };
 }
