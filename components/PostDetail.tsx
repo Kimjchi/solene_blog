@@ -164,7 +164,7 @@ export default function PostDetail({
         alt={title}
         className="h-96 object-contain object-center rounded-lg overflow-hidden mb-5 max-w-5/6 mx-auto"
       ></img>
-      <div className="line-clamp-5 overflow-hidden text-justify text-gray-700 px-4 lg:px-10 mb-8 select-none">
+      <div className="text-justify text-gray-700 px-4 lg:px-10 mb-8 select-none">
         {content?.children.map((typeObj: any, index: any) => {
           const children = typeObj.children.map((item: any, itemIndex: any) =>
             getContentFragment(itemIndex, item.text, item),
