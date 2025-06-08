@@ -126,7 +126,7 @@ export default function PostDetail({
           const children2 = typeObj.children.map((item: any, itemIndex: any) =>
             getContentFragment(itemIndex, item.text, item),
           );
-          return <li>{children2}</li>;
+          return <li key={index}>{children2}</li>;
         });
       case "image":
         return (

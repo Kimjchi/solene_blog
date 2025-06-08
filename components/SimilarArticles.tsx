@@ -13,7 +13,7 @@ export default function SimilarArticles({ lightPosts }: SimilarArticlesProps) {
       <h3 className="ml-3 font-finlandica-500 text-xl mb-2">
         Ces articles devraient vous plaire
       </h3>
-      <div className="flex flex-row h-72 p-3 relative bg-white">
+      <div className="flex flex-row p-3 relative bg-white">
         {lightPosts.map((post) => (
           <Link href={`/post/${post.slug}`} key={post.id} className="tw-flex">
             <div

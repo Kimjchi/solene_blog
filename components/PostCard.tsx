@@ -63,10 +63,10 @@ const PostCard = ({
           priority={isFeatured}
         />
       </div>
-      <p className="line-clamp-5 overflow-hidden text-center text-gray-700 font-normal px-4 lg:px-10 h-48 mb-16">
+      <p className="line-clamp-[8] overflow-ellipsis text-center text-gray-700 font-normal px-4 lg:px-10 h-48 grow mb-6">
         {excerpt}
       </p>
-      <div className="text-center flex flex-col px-2 items-center bottom-2 absolute w-11/12 -translate-x-2/4 left-2/4">
+      <div className="text-center flex flex-col px-2 items-center">
         <div className="mb-4">
           <Link href={`/post/${url}`}>
             <span className="transition duration-500 transform hover:-translate-y-1 inline-block bg-black	text-white px-6 py-2 cursor-pointer text-lg font-finlandica">
